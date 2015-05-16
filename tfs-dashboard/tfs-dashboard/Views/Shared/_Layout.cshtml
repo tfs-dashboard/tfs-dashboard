@@ -1,16 +1,20 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="tfsApp">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    @*@Styles.Render("~/bundles/bootstrap-styles")*@
+    @Scripts.Render("~/bundles/tfsApp")
 </head>
 <body>
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap-scripts")
     @RenderSection("scripts", required: false)
 </body>
 </html>

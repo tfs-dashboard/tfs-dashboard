@@ -1,0 +1,142 @@
+﻿@import "_bootstrap.scss";
+
+.open > .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    background-color:#c05045;
+    border:thick;
+    margin-left:5px;
+    border-radius:0;
+}
+
+.dropdown-menu {
+    background-color:#c05045;
+    display:block;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 500ms ease, visibility 500ms ease;
+    -moz-transition: opacity 500ms ease, visibility 500ms ease;
+    -o-transition: opacity 500ms ease, visibility 500ms ease;
+    transition: opacity 500ms ease, visibility 500ms ease;
+    border:thick;
+    margin-left:5px;
+    border-radius:0;
+}
+
+.container-fluid {
+    min-height: 1080px;
+    background-color: #000000;
+}
+
+.box {
+    color: white;
+    font-size: large;
+    /*border-right: 1px solid #fff;
+        border-left: 1px solid #fff;
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #fff;*/
+}
+
+.mini-box {
+    @extend .box;
+    height: 50px;
+    line-height: 50px;
+}
+
+.bot-mini-box {
+    @extend .mini-box;
+}
+
+.normal-box {
+    @extend .box;
+    height: 100px;
+    line-height: 100px;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.big-box {
+    @extend .box;
+    height: 200px;
+}
+
+.square {
+    margin: 2%;
+    width: 135px;
+    height: 75px;
+    transition: all 0.3s ease 0s;
+}
+
+.bug {
+    @extend .square;
+    background: #c05045;
+}
+
+.square:hover {
+    width: 145px;
+    height: 80px;
+}
+
+.change-request {
+    @extend .square;
+    background: #4aacc5;
+}
+
+.requirement {
+    @extend .square;
+    background: #9dbb61;
+}
+
+.customBar {
+    background: #c05045;
+    padding: 0;
+    margin: 0;
+    height: 30px;
+    min-height: 30px;
+    border-radius: 0 !important;
+}
+
+.customText {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    color: white;
+}
+
+.customBtn {
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-size: 2.0em;
+    border: none;
+    background: none;
+    margin-left: 1%;
+}
+
+.navbar {
+    width: 1920px;
+}
+
+.navbar-brand {
+    color: white;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.connect-button{
+    margin:0;
+    height:50px;
+    width:100%;
+    color:white;
+    background-color:#c05045;
+    border:none;
+    font-size:18px;
+}
+
+/*.connect-button:hover{
+    background-color:$brand-warning;
+}*/

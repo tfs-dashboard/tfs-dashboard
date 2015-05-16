@@ -38,6 +38,19 @@ namespace tfs_dashboard
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            bundles.Add(new StyleBundle("~/bundles/bootstrap-styles").Include(
+                        "~/stylesheets/styles.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap-scripts").Include(
+                        "~/javascripts/bootstrap*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tfsApp").Include(
+                "~/Scripts/angular.js",
+                "~/Scripts/angular-route.js",
+                "~/App/app.js",
+                "~/App/directives/navigation.js",
+                "~/App/directives/settings.js"));
         }
     }
 }
