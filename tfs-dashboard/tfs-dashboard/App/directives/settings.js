@@ -5,12 +5,28 @@ app.directive("connectionModal", function () {
         restrict: 'E',
         templateUrl: '/home/connectionmodal/',
         controller: function ($scope, $http) {
-            $scope.message = "Now viewing about!";
-            $scope.connect = function (url) {
-                $http.get('/connection/getcollectioninfo').success(function (data) {
-                    $scope.nameList = data
+            $scope.conUrl = "";
+
+            $scope.connect = function (conUrl) {
+                $http.post('/connection/getcollectioninfo', { url: conUrl }).success(function (res) {
+                    $scope.collectionList = res;
+                    $scope.isUrlValid = true;
                 }
-            )
+            ).error(function () {
+                $scope.collectionList = null;
+                $scope.projectList = null;
+                $scope.isUrlValid = false;
+                $scope.isCollectionSelected = false;
+            })
+            }
+
+            $scope.changedSelectedCollection = function (selectedCollection) {
+                $http.post('/connection/getprojectinfo', { collectionName: selectedCollection }).success(function (res) {
+                    $scope.projectList = res;
+                    $scope.isCollectionSelected = true;
+                }).error(function () {
+                    $scope.isCollectionSelected = false;
+                })
             }
         },
         controllerAs: 'connection'

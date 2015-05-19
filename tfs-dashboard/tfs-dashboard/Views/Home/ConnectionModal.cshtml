@@ -6,14 +6,16 @@
                 <h4 class="modal-title">Connect to TFS</h4>
             </div>
             <div class="modal-body">
-                <p>Name: <input type="text" ng-model="name"></p>
-                <button ng-click="connect(name)">Connect</button>
-                <select name="selectedCollectionName" ng-model="selectedCollectionName">
-                    <option ng-repeat="name in nameList" value="{{name}}">{{name}}</option>
+                <p>Collection URL: <input type="text" ng-model="conUrl"></p>
+                <button ng-click="connect(conUrl)">Connect</button>
+                <select name="selectedCollectionName" ng-show="isUrlValid" ng-model="selectedCollectionName" ng-change="changedSelectedCollection(selectedCollectionName)">
+                    <option ng-repeat="collection in collectionList" value="{{collection.Name}}">{{collection.Name}}</option>
+                </select>
+                <select name="selectedProjectName" ng-show="isCollectionSelected" ng-model="selectedProjectName">
+                    <option ng-repeat="project in projectList" value="{{project.Name}}">{{project.Name}}</option>
                 </select>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>

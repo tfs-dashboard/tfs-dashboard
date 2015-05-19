@@ -17,6 +17,7 @@ namespace tfs_dashboard.Repositories
         {
             var teamServer = TfsConfigurationServerFactory.GetConfigurationServer(teamCollectionUri);
             teamServer.Authenticate();
+
             var teamCollections = new Collection<TeamCollection>();
             foreach (var collectionNode in teamServer.CatalogNode.QueryChildren(_teamObjectTypes, false, CatalogQueryOptions.None))
             {
