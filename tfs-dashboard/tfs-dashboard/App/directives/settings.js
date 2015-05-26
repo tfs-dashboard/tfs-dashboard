@@ -8,9 +8,11 @@ app.directive("connectionModal", function () {
             $scope.conUrl = "";
 
             $scope.connect = function (conUrl) {
-                $http.post('/connection/getcollectioninfo', { url: conUrl }).success(function (res) {
-                    $scope.collectionList = res;
-                    $scope.isUrlValid = true;
+                $http.post('/connection/getteamserverconfig', { url: conUrl }).success(function (res) {
+                    $http.get('/connection/getcollectioninfo').success(function (res){
+                        $scope.collectionList = res;
+                        $scope.isUrlValid = true;
+                    });
                 }
             ).error(function () {
                 $scope.collectionList = null;
@@ -27,6 +29,10 @@ app.directive("connectionModal", function () {
                 }).error(function () {
                     $scope.isCollectionSelected = false;
                 })
+            }
+
+            $scope.changedSelectecProject = function (selectedProject) {
+                $http.post()
             }
         },
         controllerAs: 'connection'

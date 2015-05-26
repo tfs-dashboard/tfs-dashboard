@@ -14,27 +14,47 @@ namespace tfs_dashboard.Controllers
 {
     public class ConnectionController : Controller
     {
-        public JsonResult GetCollectionInfo(string url)
-        
+        public JsonResult GetCollectionInfo()
         {
-            //tfsCol = TeamCollectionRepository.Get(new Uri("http://tfs2.de.abb.com:8080/tfs/"));
-            var tfsCol = TeamCollectionRepository.Get(new Uri(url));
-            Session["tfsCol"] = tfsCol;
-            return Json(tfsCol, JsonRequestBehavior.AllowGet);
+            try
+            {
+                TfsConfigurationServer teamServer = (TfsConfigurationServer)Session["TeamConfigurationServer"];
+                var tfsCol = TeamCollectionRepository.Get(teamServer);
+                Session["TeamCollection"] = tfsCol;
+                return Json(tfsCol, JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                throw new Exception();
+            }
         }
 
         public JsonResult GetProjectInfo(string collectionName)
         {
-            var tfsCol = Session["tfsCol"];
+            var tfsCol = Session["TeamCollection"];
             IEnumerable<TeamCollection> collection = (IEnumerable<TeamCollection>)tfsCol;
             if (tfsCol == null)
             {
                 throw new Exception();
             }
             TeamCollection selectedCollection = collection.Where(m => m.Name == collectionName).First();
-            selectedCollection = TeamProjectRepository.Get(selectedCollection);
+            Session["SelectedCollection"] = selectedCollection = TeamProjectRepository.Get(selectedCollection);
             var projectList = selectedCollection.Projects;
-            return Json(projectList, JsonRequestBehavior.AllowGet);
+            return Json(projectList, JsonRequestBehavior.AllowGet); 
+            
+        }
+
+        public void GetTeamServerConfig(string url)
+        {
+            try
+            {
+                var teamServer = TeamCollectionRepository.GetTeamConfigurationServer(new Uri(url));
+                Session["TeamConfigurationServer"] = teamServer;
+            }
+            catch
+            {
+                throw new Exception();
+            }
         }
     }
 }
