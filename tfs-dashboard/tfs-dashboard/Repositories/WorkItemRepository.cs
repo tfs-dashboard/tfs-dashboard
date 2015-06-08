@@ -1,4 +1,5 @@
-﻿using Microsoft.TeamFoundation.WorkItemTracking.Client;
+﻿using Microsoft.TeamFoundation.Client;
+using Microsoft.TeamFoundation.WorkItemTracking.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,10 @@ namespace tfs_dashboard.Repositories
 {
     public class WorkItemRepository
     {
-        public WorkItemStore Get(team)
+        public static WorkItemStore Get(Uri teamServerUri)
+        {
+            TfsTeamProjectCollection teamProjectCollection = TfsTeamProjectCollectionFactory.GetTeamProjectCollection(teamServerUri);
+            return teamProjectCollection.GetService<WorkItemStore>();
+        }
     }
 }

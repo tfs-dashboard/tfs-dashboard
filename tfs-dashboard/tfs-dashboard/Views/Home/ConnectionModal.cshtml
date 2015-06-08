@@ -8,14 +8,17 @@
             <div class="modal-body">
                 <p>Collection URL: <input type="text" ng-model="conUrl"></p>
                 <button ng-click="connect(conUrl)">Connect</button>
-                <select name="selectedCollectionName" ng-show="isUrlValid" ng-model="selectedCollectionName" ng-change="changedSelectedCollection(selectedCollectionName)">
+                <select name="selectedCollectionName" ng-disabled="!isUrlValid" ng-model="selectedCollectionName" ng-change="changedSelectedCollection(selectedCollectionName)">
                     <option ng-repeat="collection in collectionList" value="{{collection.Name}}">{{collection.Name}}</option>
                 </select>
-                <select name="selectedProjectName" ng-show="isCollectionSelected" ng-model="selectedProjectName">
+                <select name="selectedProjectName" ng-disabled="!isCollectionSelected" ng-model="selectedProjectName" ng-change="changedSelectedProject(selectedProjectName)">
                     <option ng-repeat="project in projectList" value="{{project.Name}}">{{project.Name}}</option>
+                </select>
+                <select name="selectedQueryName" ng-disabled="!isQuerySelected" ng-model="selectedQueryName" ng-options="query for query in queriesList">
                 </select>
             </div>
             <div class="modal-footer">
+                <button ng-disabled="!isQuerySelected" ng-click="getWorkItems(selectedQueryName)">Save</button>
             </div>
         </div>
     </div>

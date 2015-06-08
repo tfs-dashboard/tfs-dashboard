@@ -32,9 +32,9 @@ namespace tfs_dashboard.Repositories
             return teamCollections;
         }
 
-        public static TfsConfigurationServer GetTeamConfigurationServer(Uri teamCollectionUri)
+        public static TfsConfigurationServer GetTeamConfigurationServer(Uri tfsUrl)
         {
-            return TfsConfigurationServerFactory.GetConfigurationServer(teamCollectionUri);
+            return TfsConfigurationServerFactory.GetConfigurationServer(tfsUrl);
         }
     }
 }
