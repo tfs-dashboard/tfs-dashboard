@@ -147,7 +147,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Bug.cs" />
+    <Compile Include="Models\ChangeRequest.cs" />
+    <Compile Include="Models\Member.cs" />
+    <Compile Include="Models\Requirement.cs" />
     <Compile Include="Models\TeamCollection.cs" />
+    <Compile Include="Models\TeamItemStore.cs" />
     <Compile Include="Models\TeamProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\TeamCollectionRepository.cs" />
