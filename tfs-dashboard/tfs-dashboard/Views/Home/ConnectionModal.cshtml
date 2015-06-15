@@ -1,25 +1,21 @@
-﻿<div id="myModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Connect to TFS</h4>
-            </div>
-            <div class="modal-body">
-                <p>Collection URL: <input type="text" ng-model="conUrl"></p>
-                <button ng-click="connect(conUrl)">Connect</button>
-                <select name="selectedCollectionName" ng-disabled="!isUrlValid" ng-model="selectedCollectionName" ng-change="changedSelectedCollection(selectedCollectionName)">
-                    <option ng-repeat="collection in collectionList" value="{{collection.Name}}">{{collection.Name}}</option>
-                </select>
-                <select name="selectedProjectName" ng-disabled="!isCollectionSelected" ng-model="selectedProjectName" ng-change="changedSelectedProject(selectedProjectName)">
-                    <option ng-repeat="project in projectList" value="{{project.Name}}">{{project.Name}}</option>
-                </select>
-                <select name="selectedQueryName" ng-disabled="!isQuerySelected" ng-model="selectedQueryName" ng-options="query for query in queriesList">
-                </select>
-            </div>
-            <div class="modal-footer">
-                <button  ng-click="getWorkItems(selectedQueryName, selectedProjectName)">Save</button>
-            </div>
-        </div>
+﻿
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">Connect to TFS</h4>
+    </div>
+    <div class="modal-body">
+        <p>Collection URL: <input type="text" ng-model="conUrl"></p>
+        <button ng-click="connect(conUrl)">Connect</button>
+        <select name="selectedCollectionName" ng-disabled="!isUrlValid" ng-model="selectedCollectionName" ng-change="changedSelectedCollection(selectedCollectionName)">
+            <option ng-repeat="collection in collectionList" value="{{collection.Name}}">{{collection.Name}}</option>
+        </select>
+        <select name="selectedProjectName" ng-disabled="!isCollectionSelected" ng-model="selectedProjectName" ng-change="changedSelectedProject(selectedProjectName)">
+            <option ng-repeat="project in projectList" value="{{project.Name}}">{{project.Name}}</option>
+        </select>
+        <select name="selectedQueryName" ng-disabled="!isQuerySelected" ng-model="selectedQueryName" ng-options="query for query in queriesList"></select>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="getWorkItems(selectedQueryName, selectedProjectName)">Save</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
     </div>
 </div>

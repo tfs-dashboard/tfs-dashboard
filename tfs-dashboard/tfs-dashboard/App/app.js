@@ -1,4 +1,4 @@
-﻿var app = angular.module('tfsApp', ['ngRoute', 'LocalStorageModule'])
+﻿var app = angular.module('tfsApp', ['ngRoute', 'LocalStorageModule', 'ui.bootstrap'])
 .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -8,9 +8,4 @@
           redirectTo: '/'
       });
 
-}
-.config(function(localStorageServiceProvider){
-    localStorageServiceProvider
-        .setStorageType('sessionStorage')
-        .setStorageCookie(30);
-})])
+}])

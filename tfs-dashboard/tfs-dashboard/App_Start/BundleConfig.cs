@@ -49,9 +49,14 @@ namespace tfs_dashboard
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-local-storage.js",
                 "~/Scripts/angular-route.js",
+                "~/Scripts/angular-modal-service.js",
                 "~/App/app.js",
+                "~/App/controllers/modalcontroller.js",
                 "~/App/directives/navigation.js",
-                "~/App/directives/settings.js"));
+                "~/App/controllers/homecontroller.js",
+                "~/App/services/dashboardservice.js",
+                "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
+                "~/App/controllers/settingscontroller.js"));
         }
     }
 }

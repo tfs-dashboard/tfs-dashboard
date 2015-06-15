@@ -3,7 +3,7 @@
     <link href="~/stylesheets/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" ng-controller="HomeController">
 
         <div class="row" style="height:30px;">
             <navigation-bar></navigation-bar>
@@ -32,8 +32,7 @@
                 </div>
             </div>
         </div>
-
-        <div ng-repeat="res in testList track by $index">
+        <div style="color:azure" ng-repeat="res in dashboard.testList track by $index">
             <p>{{res}}</p>
         </div>
         @*@for (int i = 0; i < 5; i++)
