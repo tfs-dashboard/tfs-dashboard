@@ -50,6 +50,7 @@ namespace tfs_dashboard
                 "~/Scripts/angular-route.js",
                 "~/App/app.js",
                 "~/App/directives/navigation.js",
+                "~/App/Scripts/angular-local-storage.js",
                 "~/App/directives/settings.js"));
         }
     }

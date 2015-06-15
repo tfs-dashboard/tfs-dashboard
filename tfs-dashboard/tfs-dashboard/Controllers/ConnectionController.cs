@@ -46,11 +46,67 @@ namespace tfs_dashboard.Controllers
             TeamCollection selectedCollection = collection.Where(m => m.Name == collectionName).First();
             selectedCollection = TeamProjectRepository.Get(selectedCollection);
             var projectList = selectedCollection.Projects;
+            GetWorkItemStore();
             return Json(projectList, JsonRequestBehavior.AllowGet);
 
         }
 
-        public void GetWorkItemStore()
+        public JsonResult GetSharedQueriesList(string projectName)
+        {
+            WorkItemStore workItemStore = (WorkItemStore)Session["WorkItemStore"];
+            var project = workItemStore.Projects[projectName];
+
+            QueryHierarchy query = project.QueryHierarchy;
+            var queryFolder = query as QueryFolder;
+            QueryItem queryItem = queryFolder["Shared Queries"];
+            queryFolder = queryItem as QueryFolder;
+
+            JsonResult x = Json(GetQueriesNames(GetAllContainedQueriesList(queryFolder)));
+            IEnumerable<string> names = (IEnumerable<string>)GetQueriesNames(GetAllContainedQueriesList(queryFolder));
+
+            return Json(names, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult GetWorkItems(string queryName, string projectName)
+        {
+            WorkItemStore workItemStore = (WorkItemStore)Session["WorkItemStore"];
+            QueryItem sel = GetQueryByName(queryName, projectName);
+            QueryDefinition def = (QueryDefinition)sel;
+            IDictionary project = new Dictionary<string, string>();
+            project.Add("project", projectName);
+
+            WorkItemCollection result = workItemStore.Query(def.QueryText, project);
+
+            foreach (WorkItem workitem in result)
+            {
+                WorkItemType whatsinit = workitem.Type;
+            }
+
+            return Json(sel);
+        }
+
+        private QueryItem GetQueryByName(string name, string projectName)
+        {
+
+            WorkItemStore workItemStore = (WorkItemStore)Session["WorkItemStore"];
+            var project = workItemStore.Projects[projectName];
+
+            QueryHierarchy query = project.QueryHierarchy;
+            var queryFolder = query as QueryFolder;
+            QueryItem queryItem = queryFolder["Shared Queries"];
+            queryFolder = queryItem as QueryFolder;
+
+            IEnumerable queries = GetAllContainedQueriesList(queryFolder);
+
+            foreach (QueryItem item in queries)
+            {
+                if (item.Name == name) return item;
+            }
+            return null;
+        }
+
+        private void GetWorkItemStore()
         {
             try
             {
@@ -66,27 +122,7 @@ namespace tfs_dashboard.Controllers
             }
         }
 
-        public JsonResult GetSharedQueriesList(string projectName)
-        {
-            WorkItemStore workItemStore = (WorkItemStore)Session["WorkItemStore"];
-            var project = workItemStore.Projects[projectName];
-
-            QueryHierarchy query = project.QueryHierarchy;
-            var queryFolder = query as QueryFolder;
-            QueryItem queryItem = queryFolder["Shared Queries"];
-            queryFolder = queryItem as QueryFolder;
-            JsonResult x = Json(GetQueriesNames(GetAllContainedQueriesList(queryFolder)));
-            IEnumerable<string> names = (IEnumerable<string>)GetQueriesNames(GetAllContainedQueriesList(queryFolder));
-
-            //List<string> names = new List<string>();
-            //for (int i = 0; i < 102; i++)
-            //{
-            //    names.Add(String.Format("asdaihsfaih{0}",i));
-            //}
-            return Json(names, JsonRequestBehavior.AllowGet);
-        }
-
-        public IEnumerable GetAllContainedQueriesList(QueryFolder queryFolder)
+        private IEnumerable GetAllContainedQueriesList(QueryFolder queryFolder)
         {
 
             List<QueryItem> queryItems = new List<QueryItem>();
@@ -104,15 +140,13 @@ namespace tfs_dashboard.Controllers
                 else
                 {
                     queryItems.Add(item);
-
-                    WorkItemStore workItemStore = (WorkItemStore)Session["WorkItemStore"];
                 }
             }
             return queryItems;
         }
 
 
-        public IEnumerable GetQueriesNames(IEnumerable queryFolder)
+        private IEnumerable GetQueriesNames(IEnumerable queryFolder)
         {
             List<string> names = new List<string>();
             foreach (QueryItem item in queryFolder)
