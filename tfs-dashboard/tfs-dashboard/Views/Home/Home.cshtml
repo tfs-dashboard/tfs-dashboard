@@ -32,6 +32,10 @@
                 </div>
             </div>
         </div>
+
+        <div ng-repeat="res in testList track by $index">
+            <p>{{res}}</p>
+        </div>
         @*@for (int i = 0; i < 5; i++)
             {
                 <div class="row">

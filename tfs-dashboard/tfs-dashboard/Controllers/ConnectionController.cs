@@ -77,13 +77,13 @@ namespace tfs_dashboard.Controllers
             project.Add("project", projectName);
 
             WorkItemCollection result = workItemStore.Query(def.QueryText, project);
-
+            List<string> whatsinit = new List<string>();
             foreach (WorkItem workitem in result)
             {
-                WorkItemType whatsinit = workitem.Type;
+                 whatsinit.Add(workitem.Type.Name);
             }
 
-            return Json(sel);
+            return Json(whatsinit);
         }
 
         private QueryItem GetQueryByName(string name, string projectName)

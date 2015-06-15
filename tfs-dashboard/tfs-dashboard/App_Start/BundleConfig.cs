@@ -47,10 +47,10 @@ namespace tfs_dashboard
 
             bundles.Add(new ScriptBundle("~/bundles/tfsApp").Include(
                 "~/Scripts/angular.js",
+                "~/Scripts/angular-local-storage.js",
                 "~/Scripts/angular-route.js",
                 "~/App/app.js",
                 "~/App/directives/navigation.js",
-                "~/App/Scripts/angular-local-storage.js",
                 "~/App/directives/settings.js"));
         }
     }

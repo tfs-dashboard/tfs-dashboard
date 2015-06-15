@@ -4,7 +4,7 @@ app.directive("connectionModal", function () {
     return {
         restrict: 'E',
         templateUrl: '/home/connectionmodal/',
-        controller: function ($scope, $http) {
+        controller: function ($scope, $http, localStorageService) {
             $scope.conUrl = "";
 
             $scope.connect = function (conUrl) {
@@ -44,9 +44,10 @@ app.directive("connectionModal", function () {
             }
 
             $scope.getWorkItems = function (selectedQuery, selectedProject) {
-                $http.post('/connection/getworkitems', { queryName: selectedQuery, projectName: selectedProject }).success(function (res) {
-
-                })
+                //$http.post('/connection/getworkitems', { queryName: selectedQuery, projectName: selectedProject }).success(function (res) {
+                   // $scope.testList = res;
+                    $modalInstance.close(result);
+                //})
             }
         },
         controllerAs: 'connection'
