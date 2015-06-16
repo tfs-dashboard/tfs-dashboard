@@ -162,7 +162,7 @@
   <ItemGroup>
     <Content Include="App\app.js" />
     <Content Include="App\controllers\homecontroller.js" />
-    <Content Include="App\controllers\modalcontroller.js" />
+    <Content Include="App\controllers\connectioncontroller.js" />
     <Content Include="App\directives\navigation.js" />
     <Content Include="App\controllers\settingscontroller.js" />
     <Content Include="App\services\dashboardservice.js" />

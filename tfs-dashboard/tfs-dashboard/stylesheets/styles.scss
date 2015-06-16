@@ -64,7 +64,6 @@
     margin: 2%;
     width: 135px;
     height: 75px;
-    transition: all 0.3s ease 0s;
 }
 
 .bug {
@@ -72,10 +71,6 @@
     background: #c05045;
 }
 
-.square:hover {
-    width: 145px;
-    height: 80px;
-}
 
 .change-request {
     @extend .square;

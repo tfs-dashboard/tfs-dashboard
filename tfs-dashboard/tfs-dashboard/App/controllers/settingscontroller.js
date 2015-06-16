@@ -7,7 +7,7 @@ app.controller("SettingsController", function ($scope, $modal) {
         var modalInstance = $modal.open({
             animation: true,
             templateUrl: 'home/connectionmodal',
-            controller: 'ModalController'
+            controller: 'ConnectionController'
         });
     }
 })

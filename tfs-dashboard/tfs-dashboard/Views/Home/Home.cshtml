@@ -8,7 +8,6 @@
         <div class="row" style="height:30px;">
             <navigation-bar></navigation-bar>
         </div>
-        <connection-modal></connection-modal>
         <div class="row">
             <div class="col-md-1 mini-box">
             </div>
@@ -33,7 +32,7 @@
             </div>
         </div>
         <div style="color:azure" ng-repeat="res in dashboard.testList track by $index">
-            <p>{{res}}</p>
+            <p ng-if="res == 'Bug'" class="bug col-lg-1">{{res}}</p>
         </div>
         @*@for (int i = 0; i < 5; i++)
             {

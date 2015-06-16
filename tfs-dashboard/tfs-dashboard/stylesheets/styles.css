@@ -5684,15 +5684,10 @@ button.close {
 .square, .bug, .change-request, .requirement {
   margin: 2%;
   width: 135px;
-  height: 75px;
-  transition: all 0.3s ease 0s; }
+  height: 75px; }
 
 .bug {
   background: #c05045; }
-
-.square:hover, .bug:hover, .change-request:hover, .requirement:hover {
-  width: 145px;
-  height: 80px; }
 
 .change-request {
   background: #4aacc5; }

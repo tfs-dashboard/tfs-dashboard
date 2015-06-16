@@ -1,6 +1,6 @@
 ﻿var app = angular.module('tfsApp')
 
-app.controller("ModalController", function ($scope, $modalInstance, $http, localStorageService, dashboard) {
+app.controller("ConnectionController", function ($scope, $modalInstance, $http, localStorageService, dashboard) {
     $scope.dashboard = dashboard;
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
@@ -46,7 +46,7 @@ app.controller("ModalController", function ($scope, $modalInstance, $http, local
     $scope.getWorkItems = function (selectedQuery, selectedProject) {
         $http.post('/connection/getworkitems', { queryName: selectedQuery, projectName: selectedProject }).success(function (res) {
             $scope.dashboard.testList = res;
-            $modalInstance.dismiss('ok');
+            $modalInstance.dismiss();
         })
     }
 })
