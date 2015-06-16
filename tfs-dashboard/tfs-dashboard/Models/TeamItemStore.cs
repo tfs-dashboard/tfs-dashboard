@@ -7,6 +7,11 @@ namespace tfs_dashboard.Models
 {
     public class TeamItemStore
     {
-        List<Member> Members;
+       public ICollection<Member> members;
+
+       public void AddMember(string name)
+       {
+           members.Add(new Member(){Name = name});
+       }
     }
 }

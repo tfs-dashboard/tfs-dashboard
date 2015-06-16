@@ -75,15 +75,29 @@ namespace tfs_dashboard.Controllers
             QueryDefinition def = (QueryDefinition)sel;
             IDictionary project = new Dictionary<string, string>();
             project.Add("project", projectName);
-
             WorkItemCollection result = workItemStore.Query(def.QueryText, project);
-            List<string> whatsinit = new List<string>();
-            foreach (WorkItem workitem in result)
+
+            TeamItemStore store = new TeamItemStore();
+            store = PopulateMembers(store, result);
+            return Json(store);
+        }
+
+        private TeamItemStore PopulateMembers(TeamItemStore store, WorkItemCollection collection)
+        {
+            store.members = new List<Member>();
+            List<string> names = new List<string>();
+            foreach (WorkItem workitem in collection)
             {
-                 whatsinit.Add(workitem.Type.Name);
+                names.Add((string)workitem["Assigned To"]);
+            }
+            names = names.Distinct().ToList();
+
+            foreach (string name in names)
+            {
+                store.AddMember(name);
             }
 
-            return Json(whatsinit);
+            return store;
         }
 
         private QueryItem GetQueryByName(string name, string projectName)

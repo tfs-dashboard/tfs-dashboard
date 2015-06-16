@@ -6,10 +6,15 @@ app.controller("ConnectionController", function ($scope, $modalInstance, $http, 
         $modalInstance.dismiss('cancel');
     };
 
-    $scope.conUrl = "";
+    //function submit(key, val) {
+    //    return localStorageService.set(key, val);
+    //}
+
+    $scope.conUrl = localStorageService.get('connectionUrl');
 
     $scope.connect = function (conUrl) {
         $http.post('/connection/getcollectioninfo', { url: conUrl }).success(function (res) {
+            //submit('connectionUrl', conUrl);
             $scope.collectionList = res;
             $scope.isUrlValid = true;
         }

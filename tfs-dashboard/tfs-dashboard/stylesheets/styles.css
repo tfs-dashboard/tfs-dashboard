@@ -5682,8 +5682,8 @@ button.close {
   height: 200px; }
 
 .square, .bug, .change-request, .requirement {
-  margin: 2%;
-  width: 135px;
+  margin: 5px;
+  width: 125px;
   height: 75px; }
 
 .bug {

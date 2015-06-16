@@ -7,8 +7,9 @@ namespace tfs_dashboard.Models
 {
     public class Member
     {
-        List<Bug> BugsAssigned;
-        List<ChangeRequest> ChangeRequestsAssigned;
-        List<Requirement> RequirementsAssigned;
+        public string Name;
+        public List<Bug> BugsAssigned;
+        public List<ChangeRequest> ChangeRequestsAssigned;
+        public List<Requirement> RequirementsAssigned;
     }
 }
