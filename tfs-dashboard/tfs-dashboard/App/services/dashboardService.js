@@ -1,5 +1,5 @@
 ﻿var app = angular.module('tfsApp')
 
-app.factory("dashboard", function () {
+app.service("dashboard", function () {
     return {};
 });

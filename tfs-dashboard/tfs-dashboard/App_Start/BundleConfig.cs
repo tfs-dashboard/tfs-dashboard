@@ -56,6 +56,7 @@ namespace tfs_dashboard
                 "~/App/directives/navigation.js",
                 "~/App/controllers/homecontroller.js",
                 "~/App/services/dashboardservice.js",
+                "~/App/services/tfsservice.js",
                 "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                 "~/App/controllers/settingscontroller.js"));
         }

@@ -1,7 +1,13 @@
 ﻿var app = angular.module('tfsApp')
 
-app.controller("ConnectionController", ['$scope', 'tfsService', function ($scope, $modalInstance, $http, localStorageService, dashboard, tfsService) {
+app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageService', '$modalInstance', 'dashboard', function ($scope, tfsService, localStorageService, $modalInstance, dashboard) {
+
     $scope.dashboard = dashboard;
+
+    $scope.selectedCollection;
+    $scope.selectedProject;
+    $scope.selectedQuery;
+
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
@@ -10,56 +16,72 @@ app.controller("ConnectionController", ['$scope', 'tfsService', function ($scope
         return localStorageService.set(key, val);
     }
 
+
+    //conn on startup
+    $scope.init = function () {
+    }
+
+    //initial connection with url
     $scope.connect = function (conUrl) {
-        $http.post('/connection/getcollectioninfo', { url: conUrl }).success(function (res) {
-            submit('connectionUrl', conUrl);
-            $scope.collectionList = res;
+        validUrlPromise = tfsService.GetCollectionInfo(conUrl);
+        submit('connectionUrl', conUrl);
+
+        validUrlPromise.then(function (res) {
+            $scope.collectionList = res.data;
             $scope.isUrlValid = true;
             $scope.conUrl = conUrl;
-        }
-    ).error(function () {
-        $scope.collectionList = null;
-        $scope.projectList = null;
-        $scope.isUrlValid = false;
-        $scope.isCollectionSelected = false;
-    })
+        },
+        (function (errorP1) {
+            $scope.collectionList = null;
+            $scope.projectList = null;
+            $scope.isUrlValid = false;
+            $scope.isCollectionSelected = false;
+        }))
     }
-
+    //changing selected collection
     $scope.selectCollection = function (selectedCollection) {
-        $scope.queriesList = null;
-        $scope.projectList = null;
-        $http.post('/connection/getprojectinfo', { collectionName: selectedCollection }).success(function (res) {
-            $scope.projectList = res;
-            submit('selectedCollection', selectedCollection);
+        var validCollectionPromise = tfsService.GetProjectInfo(selectedCollection);
+        submit('selectedCollection', selectedCollection);
+
+        validCollectionPromise.then(function (res) {
+            $scope.projectList = res.data;
             $scope.isCollectionSelected = true;
             $scope.dashboard.selectedCollection = selectedCollection;
-        }).error(function () {
+        },
+        (function (errorP1) {
             $scope.isCollectionSelected = false;
-        })
+        }))
     }
 
+    //changing selected project
     $scope.selectProject = function (selectedProject) {
-        $scope.queriesList = null;
-        $http.post('/connection/getsharedquerieslist', { projectName: selectedProject }).success(function (res) {
-            $scope.queriesList = res;
+        var validProjectPromise = tfsService.GetSharedQueries(selectedProject)
+        submit('selectedProject', selectedProject);
+
+        validProjectPromise.then(function (res) {
+            $scope.queriesList = res.data;
             $scope.isQuerySelected = true;
             submit('selectedProject', selectedProject);
-        }).error(function () {
-            $scope.isQuerySelected = false;
-            $scope.queriesList = null;
+            (function (errorP1) {
+                $scope.isQuerySelected = false;
+                $scope.queriesList = null;
+            })
         })
     }
 
     $scope.getWorkItems = function (selectedQuery, selectedProject) {
-        $http.post('/connection/getworkitems', { queryName: selectedQuery, projectName: selectedProject }).success(function (res) {
-            $scope.dashboard.testList = res;
+        var gotWorkItemsPromise = tfsService.GetWorkItems(selectedQuery, selectedProject);
+
+        gotWorkItemsPromise.then(function (res) {
+            $scope.dashboard.testList = res.data;
             $modalInstance.dismiss();
         })
-        //}
-        //$scope.init = function () {
-        //    $scope.connect(localStorageService.get("connectionUrl"));
-        //    $scope.selectCollection(localStorageService.get("selectedCollection"));
-        //    $scope.selectProject(localStorageService.get("selectedProject"));
-        //}
     }
-});
+
+    //$scope.init = function () {
+    //    $scope.connect(localStorageService.get("connectionUrl"));
+    //    $scope.selectCollection(localStorageService.get("selectedCollection"));
+    //    $scope.selectProject(localStorageService.get("selectedProject"));
+    //}
+}
+]);
