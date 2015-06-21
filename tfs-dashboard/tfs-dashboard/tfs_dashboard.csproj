@@ -166,6 +166,7 @@
     <Content Include="App\directives\navigation.js" />
     <Content Include="App\controllers\settingscontroller.js" />
     <Content Include="App\services\dashboardservice.js" />
+    <Content Include="App\services\tfsservice.js" />
     <Content Include="Config\ProjectConfiguration.xml" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

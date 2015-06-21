@@ -49,10 +49,7 @@
 
 .normal-box {
     @extend .box;
-    height: 100px;
-    line-height: 100px;
-    margin-bottom: 2px;
-    text-align: center;
+    margin-bottom:10px;
 }
 
 .big-box {
