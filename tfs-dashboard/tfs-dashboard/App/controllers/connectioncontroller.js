@@ -18,8 +18,12 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
 
 
     //conn on startup
-    $scope.init = function () {
-    }
+    //$scope.init = function () {
+    //    connOK = $scope.connect(localStorageService.get("connectionUrl"));
+    //    if (connOK) {
+    //        $scope.selectCollection(localStorageService.get("selectedCollection"));
+    //    }
+    //}
 
     //initial connection with url
     $scope.connect = function (conUrl) {
@@ -44,7 +48,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
         submit('selectedCollection', selectedCollection);
 
         validCollectionPromise.then(function (res) {
-            $scope.projectList = res.data;
+            $scope.projectList = res;
             $scope.isCollectionSelected = true;
             $scope.dashboard.selectedCollection = selectedCollection;
         },
@@ -59,7 +63,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
         submit('selectedProject', selectedProject);
 
         validProjectPromise.then(function (res) {
-            $scope.queriesList = res.data;
+            $scope.queriesList = res;
             $scope.isQuerySelected = true;
             submit('selectedProject', selectedProject);
             (function (errorP1) {
@@ -73,15 +77,17 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
         var gotWorkItemsPromise = tfsService.GetWorkItems(selectedQuery, selectedProject);
 
         gotWorkItemsPromise.then(function (res) {
-            $scope.dashboard.testList = res.data;
+            $scope.dashboard.testList = res;
             $modalInstance.dismiss();
         })
     }
 
-    //$scope.init = function () {
-    //    $scope.connect(localStorageService.get("connectionUrl"));
-    //    $scope.selectCollection(localStorageService.get("selectedCollection"));
-    //    $scope.selectProject(localStorageService.get("selectedProject"));
-    //}
+    $scope.init = function () {
+        $scope.connect(localStorageService.get("connectionUrl"));
+        $scope.selectCollection(localStorageService.get("selectedCollection"));
+        $scope.selectProject(localStorageService.get("selectedProject"));
+
+        //ifurlvalid
+    }
 }
 ]);
