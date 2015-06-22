@@ -7,5 +7,6 @@ namespace tfs_dashboard.Models
 {
     public class Bug
     {
+        private string Title { get; set; }
     }
 }

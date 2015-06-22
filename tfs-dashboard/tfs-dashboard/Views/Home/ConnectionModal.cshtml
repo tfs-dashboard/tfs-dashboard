@@ -1,18 +1,17 @@
 ﻿
-<div class="modal-content" >
+<div class="modal-content" ng-init="init()">
     <div class="modal-header">
         <h4 class="modal-title">Connect to TFS</h4>
     </div>
     <div class="modal-body" ng-show="showModal">
         <p>Collection URL: <input type="text" ng-model="conUrl"></p>
         <button ng-click="connect(conUrl)">Connect</button>
-        <select ng-model="dashboard.selectedCollection" ng-disabled="!isUrlValid" ng-change="selectCollection(dashboard.selectedCollection)">
-            <option ng-repeat="collection in collectionList" value="{{collection.Name}}">{{collection.Name}}</option>
+        <select ng-model="dashboard.selectedCollection" ng-disabled="!isUrlValid" ng-change="selectCollection(dashboard.selectedCollection)"
+                ng-options="collection.Name for collection in collectionList track by collection.Name" value="collection.Name">
         </select>
-        <select ng-model="dashboard.selectedProject" ng-disabled="!isCollectionSelected" ng-change="selectProject(dashboard.selectedProject)">
-            <option ng-repeat="project in projectList" value="{{project.Name}}">{{project.Name}}</option>
-        </select>
-        <select ng-model="dashboard.selectedQuery" ng-disabled="!isProjectSelected"ng-options="query for query in queriesList"></select>
+        <select ng-model="dashboard.selectedProject" ng-disabled="!isCollectionSelected" value="project.Name" ng-change="selectProject(dashboard.selectedProject)"
+                ng-options="project.Name for project in projectList track by project.Name"></select>
+        <select ng-model="dashboard.selectedQuery" ng-disabled="!isProjectSelected" ng-options="query for query in queriesList track by query"></select>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="getWorkItems(dashboard.selectedQuery, dashboard.selectedProject)">Save</button>

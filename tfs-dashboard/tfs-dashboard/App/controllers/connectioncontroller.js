@@ -20,32 +20,35 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
 
     //conn on startup
 
+    $scope.init = function () {
+        var defer = $q.defer();
+        defer.promise
+            .then(function () {
+                $scope.connect(localStorageService.get("connectionUrl"));
+                return localStorageService.get("selectedCollection");
+            })
+            .then(function (selCol) {
+                $scope.selectCollection(selCol);
+                return localStorageService.get("selectedProject");
+            })
+             .then(function (selProj) {
+                 $scope.selectProject(selProj)
+                 return localStorageService.get("selectedQuery");
+             })
+             .then(function (selQuer) {
+                 $scope.dashboard.selectedQuery = selQuer;
+             })
+        defer.resolve();
 
-    var defer = $q.defer();
-    defer.promise
-        .then(function () {
-            $scope.connect(localStorageService.get("connectionUrl"));
-        })
-        .then(function () {
-            $scope.selectCollection(localStorageService.get("selectedCollection"));
-        })
-         .then(function () {
-             $scope.selectProject(localStorageService.get("selectedProject"))
-         })
-         .then(function () {
-             $scope.dashboard.selectedQuery = (localStorageService.get("selectedQuery"))
-         })
-    defer.resolve();
-
-    $timeout(function () {
-        $scope.showModal = true;
-    }, 3000)
-
+        $timeout(function () {
+            $scope.showModal = true;
+        }, 3000)
+    }
     //initial connection with url
     $scope.connect = function (conUrl) {
         validUrlPromise = tfsService.GetCollectionInfo(conUrl);
         submit('connectionUrl', conUrl);
-
+        $scope.collectionList = null;
         validUrlPromise.then(function (res) {
             $scope.collectionList = res.data;
             $scope.isUrlValid = true;
@@ -53,19 +56,25 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
         },
         (function (errorP1) {
             $scope.collectionList = null;
-            $scope.projectList = null;
             $scope.isUrlValid = false;
             $scope.isCollectionSelected = false;
         }))
+
+        $scope.dashboard.selectedCollection = null;
+        $scope.dashboard.selectedProject = null;
+        $scope.dashboard.selectedQuery = null;
+        $scope.projectList = null;
+        $scope.queriesList = null;
     }
     //changing selected collection
     $scope.selectCollection = function (selectedCollection) {
-        var validCollectionPromise = tfsService.GetProjectInfo(selectedCollection);
-
         $scope.projectList = null;
+        var validCollectionPromise = tfsService.GetProjectInfo(selectedCollection.Name);
+        submit('selectedCollection', selectedCollection);
+
+        $scope.selectedProject = null;
 
         validCollectionPromise.then(function (res) {
-            submit('selectedCollection', selectedCollection);
             $scope.projectList = res;
             $scope.isCollectionSelected = true;
             $scope.dashboard.selectedCollection = selectedCollection;
@@ -73,13 +82,16 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
         (function (errorP1) {
             $scope.isCollectionSelected = false;
         }))
+
+        $scope.dashboard.selectedProject = null;
+        $scope.dashboard.selectedQuery = null;
+        $scope.queriesList = null;
     }
 
     //changing selected project
     $scope.selectProject = function (selectedProject) {
-        var validProjectPromise = tfsService.GetSharedQueries(selectedProject)
-
         $scope.queriesList = null;
+        var validProjectPromise = tfsService.GetSharedQueries(selectedProject.Name)
 
         $scope.dashboard.selectedProject = selectedProject;
         validProjectPromise.then(function (res) {
@@ -93,10 +105,12 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
                 $scope.queriesList = null;
             })
         })
+
+        $scope.dashboard.selectedQuery = null;
     }
 
     $scope.getWorkItems = function (selectedQuery, selectedProject) {
-        var gotWorkItemsPromise = tfsService.GetWorkItems(selectedQuery, selectedProject);
+        var gotWorkItemsPromise = tfsService.GetWorkItems(selectedQuery, selectedProject.Name);
         gotWorkItemsPromise.then(function (res) {
             $scope.dashboard.selectedQuery = selectedQuery;
             submit('selectedQuery', selectedQuery);

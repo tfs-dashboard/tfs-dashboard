@@ -97,6 +97,21 @@ namespace tfs_dashboard.Controllers
                 store.AddMember(name);
             }
 
+            foreach (WorkItem workItem in collection)
+            {
+                string assignedTo = (string)workItem["Assigned To"];
+                switch (workItem.Type.Name)
+                {
+                    case "Bug":
+                        store.members.Add(new Bug() { Title});
+                        break;
+                    case "Requirement":
+                        break;
+                    case "Change Request":
+                        break;
+                }
+            }
+
             return store;
         }
 
