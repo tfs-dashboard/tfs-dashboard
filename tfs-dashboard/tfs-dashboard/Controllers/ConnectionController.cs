@@ -77,42 +77,8 @@ namespace tfs_dashboard.Controllers
             project.Add("project", projectName);
             WorkItemCollection result = workItemStore.Query(def.QueryText, project);
 
-            TeamItemStore store = new TeamItemStore();
-            store = PopulateMembers(store, result);
+            TeamItemStore store = new TeamItemStore(result);
             return Json(store);
-        }
-
-        private TeamItemStore PopulateMembers(TeamItemStore store, WorkItemCollection collection)
-        {
-            store.members = new List<Member>();
-            List<string> names = new List<string>();
-            foreach (WorkItem workitem in collection)
-            {
-                names.Add((string)workitem["Assigned To"]);
-            }
-            names = names.Distinct().ToList();
-
-            foreach (string name in names)
-            {
-                store.AddMember(name);
-            }
-
-            foreach (WorkItem workItem in collection)
-            {
-                string assignedTo = (string)workItem["Assigned To"];
-                switch (workItem.Type.Name)
-                {
-                    case "Bug":
-                        store.members.Add(new Bug() { Title});
-                        break;
-                    case "Requirement":
-                        break;
-                    case "Change Request":
-                        break;
-                }
-            }
-
-            return store;
         }
 
         private QueryItem GetQueryByName(string name, string projectName)

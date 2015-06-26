@@ -51,6 +51,7 @@ namespace tfs_dashboard
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-modal-service.js",
                 "~/App/app.js",
+                "~/App/filters.js",
                 "~/Scripts/common.js",
                 "~/App/controllers/connectioncontroller.js",
                 "~/App/directives/navigation.js",

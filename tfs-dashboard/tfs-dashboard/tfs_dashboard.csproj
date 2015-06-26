@@ -165,6 +165,7 @@
     <Content Include="App\controllers\connectioncontroller.js" />
     <Content Include="App\directives\navigation.js" />
     <Content Include="App\controllers\settingscontroller.js" />
+    <Content Include="App\filters.js" />
     <Content Include="App\services\dashboardservice.js" />
     <Content Include="App\services\tfsservice.js" />
     <Content Include="Config\ProjectConfiguration.xml" />

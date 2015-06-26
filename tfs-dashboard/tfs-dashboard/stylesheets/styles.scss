@@ -24,13 +24,13 @@
 }
 
 .container-fluid {
+    max-width:1920px;
     min-height: 1080px;
     background-color: #000000;
 }
 
 .box {
     color: white;
-    font-size: large;
     /*border-right: 1px solid #fff;
         border-left: 1px solid #fff;
         border-top: 1px solid #fff;
@@ -39,6 +39,7 @@
 
 .mini-box {
     @extend .box;
+    font-size:medium;
     height: 50px;
     line-height: 50px;
 }
@@ -49,6 +50,7 @@
 
 .normal-box {
     @extend .box;
+    font-size: x-small;
     margin-bottom:10px;
 }
 
@@ -58,9 +60,9 @@
 }
 
 .square {
-    margin:5px;
-    width: 125px;
-    height: 75px;
+    margin:3px;
+    width: 150px;
+    height: 95px;
 }
 
 .bug {
@@ -81,6 +83,7 @@
 
 .customBar {
     background: #c05045;
+    max-width:1918px;
     padding: 0;
     margin: 0;
     height: 30px;
