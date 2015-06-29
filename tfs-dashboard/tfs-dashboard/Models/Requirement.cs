@@ -6,16 +6,11 @@ using System.Web;
 
 namespace tfs_dashboard.Models
 {
-    public class Requirement
+    public class Requirement : TeamItem
     {
-        
-        public string Title { get; set; }
-        public string State { get; set; }
-
-        public Requirement(WorkItem workItem)
+        public Requirement(WorkItem workItem) : base(workItem)
         {
-            Title = workItem.Title;
-            State = workItem.State;
+
         }
     }
 }

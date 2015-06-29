@@ -40,16 +40,19 @@
                     <div style="padding:0" class="col-md-2 normal-box">
                         <div ng-repeat="workItem in member.BugsAssigned | workItemsState:n">
                             <div style="padding:3px;" class="bug col-md-1">
+                                <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
                                 <p style="margin:0; padding:0;">{{workItem.Title}}</p>
                             </div>
                         </div>
                         <div ng-repeat="workItem in member.ChangeRequestsAssigned | workItemsState:n">
                             <div style="padding:3px;" class="change-request col-md-1">
+                                <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
                                 <p style="margin:0; padding:0;">{{workItem.Title}}</p>
                             </div>
                         </div>
                         <div ng-repeat="workItem in member.RequirementsAssigned | workItemsState:n">
                             <div style="padding:3px;" class="requirement col-md-1">
+                                <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
                                 <p style="margin:0; padding:0;">{{workItem.Title}}</p>
                             </div>
                         </div>

@@ -152,6 +152,7 @@
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Requirement.cs" />
     <Compile Include="Models\TeamCollection.cs" />
+    <Compile Include="Models\TeamItem.cs" />
     <Compile Include="Models\TeamItemStore.cs" />
     <Compile Include="Models\TeamProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

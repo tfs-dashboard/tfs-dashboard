@@ -2,20 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace tfs_dashboard.Models
 {
-    public class ChangeRequest
+    public class ChangeRequest : TeamItem
     {
-        
-        public string Title { get; set; }
-        public string State { get; set; }
-
-        public ChangeRequest(WorkItem workItem)
+        public ChangeRequest(WorkItem workItem) : base(workItem)
         {
-            Title = workItem.Title;
-            State = workItem.State;
+
         }
     }
 }

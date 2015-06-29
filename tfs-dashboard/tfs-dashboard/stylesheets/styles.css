@@ -5683,7 +5683,8 @@ button.close {
 .square, .bug, .change-request, .requirement {
   margin: 3px;
   width: 150px;
-  height: 95px; }
+  height: 95px;
+  cursor: pointer; }
 
 .bug {
   background: #c05045; }

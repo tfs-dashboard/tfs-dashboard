@@ -6,15 +6,11 @@ using System.Web;
 
 namespace tfs_dashboard.Models
 {
-    public class Bug
+    public class Bug : TeamItem
     {
-        public string Title { get; set; }
-        public string State { get; set; }
-
-        public Bug(WorkItem workItem)
+        public Bug(WorkItem workItem) : base(workItem)
         {
-            Title = workItem.Title;
-            State = workItem.State;
+            Bug bug = this;
         }
     }
 }
