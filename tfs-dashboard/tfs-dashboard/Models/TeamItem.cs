@@ -1,0 +1,54 @@
+﻿using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace tfs_dashboard.Models
+{
+    public class TeamItem
+    {
+        public string Title { get; private set; }
+        public string State { get; private set; }
+        public int Priority { get; private set; }
+        public string Status { get; protected set; }
+        public string VerificationStatus { get; private set; }
+        public int Id { get; private set; }
+
+        public TeamItem(WorkItem workItem)
+        {
+            foreach (Field field in workItem.Fields)
+            {
+                if (field.Name == "Priority")
+                {
+                    Priority = (int)field.Value;
+                }
+                if (field.Name == "Verification Status")
+                {
+                    this.VerificationStatus = (string)field.Value;
+                }
+            }
+            switch (workItem.State)
+            {
+                case "Proposed":
+                    if (this.Priority < 4)
+                        this.Status = "Backlog";
+                    break;
+                case "Active":
+                    this.Status = "In work";
+                    break;
+                case "Resolved":
+                    if (this.VerificationStatus == "Not Executed")
+                        this.Status = "Waiting for test";
+                    else if (this.VerificationStatus == "Resolved")
+                        this.Status = "In test";
+                    else if (this.VerificationStatus == "Passed")
+                        this.Status = "Waiting for release";
+                    break;
+            }
+            this.Title = workItem.Title;
+            this.State = workItem.State;
+            this.Id = workItem.Id;
+        }
+    }
+}
