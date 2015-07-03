@@ -4,7 +4,6 @@
 </head>
 <body>
     <div class="container-fluid" ng-controller="HomeController">
-
         <div class="row" style="height:30px;">
             <navigation-bar></navigation-bar>
         </div>
@@ -41,19 +40,31 @@
                         <div ng-repeat="workItem in member.BugsAssigned | workItemsState:n">
                             <div style="padding:3px;" class="bug col-md-1">
                                 <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
-                                <p style="margin:0; padding:0;">{{workItem.Title}}</p>
+                                <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
+                                <p tooltip-placement="right" tooltip={{workItem.Title}} style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
+                                <div style="padding:0; margin:0; position:absolute; bottom:0">
+                                    halo
+                                </div>
                             </div>
                         </div>
                         <div ng-repeat="workItem in member.ChangeRequestsAssigned | workItemsState:n">
                             <div style="padding:3px;" class="change-request col-md-1">
                                 <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
-                                <p style="margin:0; padding:0;">{{workItem.Title}}</p>
+                                <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
+                                <p tooltip-placement="right" tooltip={{workItem.Title}} style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
+                                <div style="padding:0; margin:0; position:absolute; bottom:0">
+                                    halo
+                                </div>
                             </div>
                         </div>
                         <div ng-repeat="workItem in member.RequirementsAssigned | workItemsState:n">
-                            <div style="padding:3px;" class="requirement col-md-1">
+                            <div  tyle="padding:3px;" class="requirement col-md-1">
                                 <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
-                                <p style="margin:0; padding:0;">{{workItem.Title}}</p>
+                                <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
+                                <p tooltip-placement="right" tooltip={{workItem.Title}} style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
+                                <div style="padding:0; margin:0; position:absolute; bottom:0">
+                                    halo
+                                </div>
                             </div>
                         </div>
                     </div>

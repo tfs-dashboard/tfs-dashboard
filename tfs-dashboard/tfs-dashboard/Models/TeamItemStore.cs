@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace tfs_dashboard.Models
 {
@@ -10,8 +11,12 @@ namespace tfs_dashboard.Models
     {
         public ICollection<Member> members;
 
-        public TeamItemStore(WorkItemCollection collection)
+        [ScriptIgnore]
+        public WorkItemStore workItemStore;
+
+        public TeamItemStore(WorkItemCollection collection, WorkItemStore workItemStore)
         {
+            this.workItemStore = workItemStore;
             PopulateMemberNames(collection);
             foreach (WorkItem workItem in collection)
             {
@@ -23,7 +28,7 @@ namespace tfs_dashboard.Models
         private void AddWorkItemToMember(WorkItem workItem, string memberName)
         {
             Member member = members.Where(m => m.Name == memberName).First();
-            member.AddWorkItem(workItem);
+            member.AddWorkItem(workItem, workItemStore);
         }
 
         private void PopulateMemberNames(WorkItemCollection collection)

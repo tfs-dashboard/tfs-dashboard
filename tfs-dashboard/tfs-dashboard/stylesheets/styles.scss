@@ -50,7 +50,7 @@
 
 .normal-box {
     @extend .box;
-    font-size: x-small;
+    font-size: 12px;
     margin-bottom:10px;
 }
 
@@ -62,13 +62,18 @@
 .square {
     margin:3px;
     width: 150px;
-    height: 95px;
+    height: 120px;
     cursor:pointer;
 }
 
 .bug {
     @extend .square;
     background: #c05045;
+}
+
+.bugDark{
+    @extend .square;
+    background: #c14034
 }
 
 

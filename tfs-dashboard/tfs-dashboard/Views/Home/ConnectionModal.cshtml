@@ -11,10 +11,10 @@
         </select>
         <select ng-model="dashboard.selectedProject" ng-disabled="!isCollectionSelected" value="project.Name" ng-change="selectProject(dashboard.selectedProject)"
                 ng-options="project.Name for project in projectList track by project.Name"></select>
-        <select ng-model="dashboard.selectedQuery" ng-disabled="!isProjectSelected" ng-options="query for query in queriesList track by query"></select>
+        <select ng-model="dashboard.selectedQuery" ng-disabled="!isProjectSelected" ng-options="query for query in queriesList track by query" value="query.Name"></select>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="getWorkItems(dashboard.selectedQuery, dashboard.selectedProject)">Save</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        <button class="btn btn-primary" ng-disabled="loadingQuery" ng-click="getWorkItems(dashboard.selectedQuery, dashboard.selectedProject)">Save</button>
+        <button class="btn btn-warning" ng-disabled="loadingQuery" ng-click="cancel()">Cancel</button>
     </div>
 </div>

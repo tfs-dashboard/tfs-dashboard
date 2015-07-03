@@ -14,8 +14,11 @@ namespace tfs_dashboard.Models
         public string Status { get; protected set; }
         public string VerificationStatus { get; private set; }
         public int Id { get; private set; }
+        public bool Blocked { get; private set; }
+        public List<Task> TaskList { get; private set; }
+        public string AssignedTo { get; private set; }
 
-        public TeamItem(WorkItem workItem)
+        public TeamItem(WorkItem workItem, WorkItemStore workItemStore)
         {
             foreach (Field field in workItem.Fields)
             {
@@ -26,6 +29,14 @@ namespace tfs_dashboard.Models
                 if (field.Name == "Verification Status")
                 {
                     this.VerificationStatus = (string)field.Value;
+                }
+                if (field.Name == "Blocked")
+                {
+                    this.Blocked = (string)field.Value == "Yes" ? true : false;
+                }
+                if (field.Name == "Assigned To")
+                {
+                    this.AssignedTo = (string)field.Value;
                 }
             }
             switch (workItem.State)
@@ -46,6 +57,18 @@ namespace tfs_dashboard.Models
                         this.Status = "Waiting for release";
                     break;
             }
+
+            TaskList = new List<Task>();
+            foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
+            {
+                WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);
+                if (item.Type.Name == "Task")
+                {
+                    this.TaskList.Add(new Task(item));
+                }
+            }
+
+
             this.Title = workItem.Title;
             this.State = workItem.State;
             this.Id = workItem.Id;

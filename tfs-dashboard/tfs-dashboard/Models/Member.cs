@@ -22,18 +22,18 @@ namespace tfs_dashboard.Models
             RequirementsAssigned = new List<Requirement>();
         }
 
-        public void AddWorkItem(WorkItem workItem)
+        public void AddWorkItem(WorkItem workItem, WorkItemStore workItemStore)
         {
             switch (workItem.Type.Name)
             {
                 case "Bug":
-                    BugsAssigned.Add(new Bug(workItem));
+                    BugsAssigned.Add(new Bug(workItem, workItemStore));
                     break;
                 case "Requirement":
-                    RequirementsAssigned.Add(new Requirement(workItem));
+                    RequirementsAssigned.Add(new Requirement(workItem, workItemStore));
                     break;
                 case "Change Request":
-                    ChangeRequestsAssigned.Add(new ChangeRequest(workItem));
+                    ChangeRequestsAssigned.Add(new ChangeRequest(workItem, workItemStore));
                     break;
             }
         }

@@ -77,7 +77,7 @@ namespace tfs_dashboard.Controllers
             project.Add("project", projectName);
             WorkItemCollection result = workItemStore.Query(def.QueryText, project);
 
-            TeamItemStore store = new TeamItemStore(result);
+            TeamItemStore store = new TeamItemStore(result, workItemStore);
             return Json(store);
         }
 
