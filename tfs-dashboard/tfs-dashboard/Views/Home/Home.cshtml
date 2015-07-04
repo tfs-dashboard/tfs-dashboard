@@ -38,32 +38,37 @@
                 <div ng-repeat="n in [1,2,3,4,5]">
                     <div style="padding:0" class="col-md-2 normal-box">
                         <div ng-repeat="workItem in member.BugsAssigned | workItemsState:n">
-                            <div style="padding:3px;" class="bug col-md-1">
+                            <div tabindex="0" rel="popover" data-color="red" popover-trigger="focus" popover-placement="bottom" popover-template="details.templateUrl" tooltip-placement="right" tooltip={{workItem.Title}} style="padding:3px;" class="bug col-md-1">
                                 <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
                                 <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
-                                <p tooltip-placement="right" tooltip={{workItem.Title}} style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
-                                <div style="padding:0; margin:0; position:absolute; bottom:0">
-                                    halo
+                                <p style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
+                                <p style="margin:0; padding:0">C:{{workItem.OverallCompletedTime}} / E: {{workItem.OverallEstimatedTime}} / R: {{workItem.OverallRemainingTime}}</p>
+                                <div>
+                                    <div class="bug-overdue" ng-show="ifWorkItemOverdue(workItem)">
+                                        <p>{{workItem.overdueTime}} {{workItem.hoursMsg}} overdue</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div ng-repeat="workItem in member.ChangeRequestsAssigned | workItemsState:n">
-                            <div style="padding:3px;" class="change-request col-md-1">
+                            <div tabindex="0" popover-trigger="focus" popover-placement="bottom" rel="popover" data-color="blue" popover-template="details.templateUrl" tooltip-placement="right" tooltip={{workItem.Title}} style="padding:3px;" class="change-request col-md-1">
                                 <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
                                 <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
-                                <p tooltip-placement="right" tooltip={{workItem.Title}} style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
-                                <div style="padding:0; margin:0; position:absolute; bottom:0">
-                                    halo
+                                <p style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
+                                <p style="margin:0; padding:0">C:{{workItem.OverallCompletedTime}} / E: {{workItem.OverallEstimatedTime}} / R: {{workItem.OverallRemainingTime}}</p>
+                                <div class="change-request-overdue" ng-show="ifWorkItemOverdue(workItem)">
+                                    <p>{{workItem.overdueTime}} {{workItem.hoursMsg}} overdue</p>
                                 </div>
                             </div>
                         </div>
                         <div ng-repeat="workItem in member.RequirementsAssigned | workItemsState:n">
-                            <div  tyle="padding:3px;" class="requirement col-md-1">
+                            <div tabindex="0" popover-trigger="focus" rel="popover" data-color="green" popover-placement="bottom" popover-template="details.templateUrl" tooltip-placement="right" tooltip={{workItem.Title}} style="padding:3px;" class="requirement col-md-1">
                                 <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
                                 <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
-                                <p tooltip-placement="right" tooltip={{workItem.Title}} style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
-                                <div style="padding:0; margin:0; position:absolute; bottom:0">
-                                    halo
+                                <p style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
+                                <p style="margin:0; padding:0">C:{{workItem.OverallCompletedTime}} / E: {{workItem.OverallEstimatedTime}} / R: {{workItem.OverallRemainingTime}}</p>
+                                <div class="requirement-overdue" ng-show="ifWorkItemOverdue(workItem)">
+                                    <p>{{workItem.overdueTime}} {{workItem.hoursMsg}} overdue</p>
                                 </div>
                             </div>
                         </div>

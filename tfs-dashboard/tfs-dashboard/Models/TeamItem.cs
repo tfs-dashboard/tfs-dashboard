@@ -17,6 +17,11 @@ namespace tfs_dashboard.Models
         public bool Blocked { get; private set; }
         public List<Task> TaskList { get; private set; }
         public string AssignedTo { get; private set; }
+        public int OverallEstimatedTime { get; private set; }
+        public int OverallCompletedTime { get; private set; }
+        public int OverallRemainingTime { get; private set; }
+
+        public string Type { get; protected set; }
 
         public TeamItem(WorkItem workItem, WorkItemStore workItemStore)
         {
@@ -59,14 +64,22 @@ namespace tfs_dashboard.Models
             }
 
             TaskList = new List<Task>();
-            foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
-            {
-                WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);
-                if (item.Type.Name == "Task")
-                {
-                    this.TaskList.Add(new Task(item));
-                }
-            }
+            this.OverallCompletedTime = 0;
+            this.OverallEstimatedTime = 0;
+            this.OverallRemainingTime = 0;
+
+            //foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
+            //{
+            //    WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);
+            //    if (item.Type.Name == "Task")
+            //    {
+            //        Task task = new Task(item);
+            //        this.TaskList.Add(task);
+            //        this.OverallCompletedTime += task.CompletedWork;
+            //        this.OverallEstimatedTime += task.OriginalEstimate;
+            //        this.OverallRemainingTime += task.RemainingWork;
+            //    }
+            //}
 
 
             this.Title = workItem.Title;

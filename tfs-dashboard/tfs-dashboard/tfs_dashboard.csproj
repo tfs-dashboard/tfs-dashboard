@@ -171,6 +171,7 @@
     <Content Include="App\services\dashboardservice.js" />
     <Content Include="App\services\tfsservice.js" />
     <Content Include="Config\ProjectConfiguration.xml" />
+    <Content Include="Content\appbar.arrow.up.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -276,6 +277,9 @@
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js.map">
+      <DependentUpon>ui-bootstrap-tpls.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="javascripts\bootstrap-sprockets.js" />
     <Content Include="javascripts\bootstrap.js" />
@@ -1155,6 +1159,7 @@
       <DependentUpon>styles.css</DependentUpon>
     </Content>
     <Content Include="Views\Home\ConnectionModal.cshtml" />
+    <Content Include="Views\Home\TaskPopover.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,44 @@
+﻿<div>
+    <img style="position:relative; margin-left:40%;" src="~/Content/appbar.arrow.up.png" />
+    <p class="details-title">{{workItem.Type}} {{workItem.Id}}</p>
+    {{workItem.Title}}
+
+    <br /><br />
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+            <p>Status: {{workItem.Status}}</p>
+        </div>
+        <div class="col-md-5">
+            <p ng-show="workItem.Blocked"> Blocked: Yes</p>
+            <p ng-show="!workItem.Blocked"> Blocked: No</p>
+        </div>
+
+        <div class="task-desc col-md-2 text-left">Id</div>
+        <div class="task-desc col-md-4 text-left">Task</div>
+        <div class="task-desc col-md-2 text-left">Estimated</div>
+        <div class="task-desc col-md-2 text-left">Completed</div>
+        <div class="task-desc col-md-2 text-left">Remaining</div>
+
+        <div ng-repeat="task in workItem.TaskList">
+            <div class="row text-left task-desc" style="display:normal;">
+                <div class="col-md-2 text-left task-desc">
+                    {{task.Id}}
+                </div>
+                <div class="col-md-4 text-left task-desc">
+                    <p ng-hide="checkIfTooLong(task,13)">{{task.Title | limitTo:13}}</p>
+                    <p tooltip-placement="bottom" tooltip={{task.Title}} ng-hide=!checkIfTooLong(task,13)>{{task.Title | limitTo:13}}..</p>
+                </div>
+                <div class="col-md-2 text-left task-desc">
+                    {{task.OriginalEstimate}}
+                </div>
+                <div class="col-md-2 text-left task-desc">
+                    {{task.CompletedWork}}
+                </div>
+                <div class="col-md-2 text-left task-desc">
+                    {{task.RemainingWork}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

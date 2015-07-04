@@ -52,6 +52,12 @@
     @extend .box;
     font-size: 12px;
     margin-bottom:10px;
+-webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
 }
 
 .big-box {
@@ -64,6 +70,7 @@
     width: 150px;
     height: 120px;
     cursor:pointer;
+    overflow:hidden;
 }
 
 .bug {
@@ -71,22 +78,75 @@
     background: #c05045;
 }
 
-.bugDark{
-    @extend .square;
-    background: #c14034
+.popover.bottom>.arrow:after {
+    display:none;
+}
+.popover.bottom>.arrow {
+    display:none;
+}
+.popover>.arrow {
+    border-width: 15px;
 }
 
+.details-title{
+    font-size:18px;
+    text-align:center;
+}
+.popover{
+    color:white;
+    border:solid 3px black;
+    width:475px;
+    max-height:none;
+    height:auto;
+    max-width:500px;
+    margin-bottom:100px;
+    right:10px;
+}
 
+[rel=popover][data-color=red] + .popover {
+    background-color:#c05045;
+}
+[rel=popover][data-color=blue] + .popover {
+    background-color:#4aacc5;
+}
+[rel=popover][data-color=green] + .popover {
+    background-color:#7fa337;
+}
+.task-desc{
+    margin-left:0;
+    padding-left:0;
+    display: normal;
+}
 .change-request {
     @extend .square;
     background: #4aacc5;
+}
+
+.overdue{
+    padding:0; margin:0; position:absolute; bottom:0; width:150px; float:left; left:0; text-align:center;
+}
+
+.bug-overdue{
+    @extend .overdue;
+    background: #a93226
+}
+
+.requirement-overdue{
+    @extend .overdue;
+    background: #7fa337;
+}
+*:focus {
+    outline: none;
+   }
+.change-request-overdue{
+    @extend .overdue;
+    background:#288da7;
 }
 
 .requirement {
     @extend .square;
     background: #9dbb61;
 }
-
 .customBar {
     background: #c05045;
     max-width:1918px;

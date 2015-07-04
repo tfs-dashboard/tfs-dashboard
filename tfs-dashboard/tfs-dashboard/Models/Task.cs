@@ -18,6 +18,8 @@ namespace tfs_dashboard.Models
         public bool Blocked { get; private set; }
         public string AssignedTo { get; private set; }
 
+        public string Type { get; private set; }
+
         public Task(WorkItem workItem)
         {
             foreach (Field field in workItem.Fields)
@@ -32,21 +34,25 @@ namespace tfs_dashboard.Models
                 }
                 if (field.Name == "Original Estimate")
                 {
-                    this.OriginalEstimate = (int)field.Value;
+
+                    double val = field.Value == null ? 0 : (double)field.Value;
+                    this.OriginalEstimate = (int)val;
                 }
-                if (field.Name == "Completed Time")
+                if (field.Name == "Completed Work")
                 {
-                    this.CompletedWork = (int)field.Value;
+                    double val = field.Value == null ? 0 : (double)field.Value;
+                    this.CompletedWork = (int)val;
                 }
-                if (field.Name == "Original Estimate")
+                if (field.Name == "Remaining Work")
                 {
-                    this.OriginalEstimate = (int)field.Value;
+                    double val = field.Value == null ? 0 : (double)field.Value;
+                    this.RemainingWork = (int)val;
                 }
             }
             this.Status = workItem.State;
             this.Title = workItem.Title;
-            this.State = workItem.State;
             this.Id = workItem.Id;
+            this.Type = "Task";
         }
     }
 }
