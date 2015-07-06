@@ -7,7 +7,7 @@
         <div class="row" style="height:30px;">
             <navigation-bar></navigation-bar>
         </div>
-        <div class="row">
+        <div ng-show="dashboard.itemsLoaded" class="row">
             <div class="col-md-1 mini-box">
             </div>
             <div class="col-md-2 mini-box">
@@ -38,7 +38,7 @@
                 <div ng-repeat="n in [1,2,3,4,5]">
                     <div style="padding:0" class="col-md-2 normal-box">
                         <div ng-repeat="workItem in member.BugsAssigned | workItemsState:n">
-                            <div tabindex="0" rel="popover" data-color="red" popover-trigger="focus" popover-placement="bottom" popover-template="details.templateUrl" tooltip-placement="right" tooltip={{workItem.Title}} style="padding:3px;" class="bug col-md-1">
+                            <div tabindex="0" rel="popover" data-color="red" popover-trigger="focus" popover-placement="bottom" popover-template="details.templateUrl" style="padding:3px;" class="bug col-md-1">
                                 <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
                                 <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
                                 <p style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div ng-repeat="workItem in member.ChangeRequestsAssigned | workItemsState:n">
-                            <div tabindex="0" popover-trigger="focus" popover-placement="bottom" rel="popover" data-color="blue" popover-template="details.templateUrl" tooltip-placement="right" tooltip={{workItem.Title}} style="padding:3px;" class="change-request col-md-1">
+                            <div tabindex="0" popover-trigger="focus" popover-placement="bottom" rel="popover" data-color="blue" popover-template="details.templateUrl" style="padding:3px;" class="change-request col-md-1">
                                 <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
                                 <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
                                 <p style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div ng-repeat="workItem in member.RequirementsAssigned | workItemsState:n">
-                            <div tabindex="0" popover-trigger="focus" rel="popover" data-color="green" popover-placement="bottom" popover-template="details.templateUrl" tooltip-placement="right" tooltip={{workItem.Title}} style="padding:3px;" class="requirement col-md-1">
+                            <div tabindex="0" popover-trigger="focus" rel="popover" data-color="green" popover-placement="bottom" popover-template="details.templateUrl" style="padding:3px;" class="requirement col-md-1">
                                 <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
                                 <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
                                 <p style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>

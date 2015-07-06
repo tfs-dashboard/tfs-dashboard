@@ -2,7 +2,7 @@
 
 app.controller("HomeController", ['$scope', 'dashboard', function ($scope, dashboard) {
     $scope.dashboard = dashboard;
-
+    $scope.dashboard.itemsLoaded = false;
     $scope.details = {
         templateUrl: "home/taskpopover"
     }

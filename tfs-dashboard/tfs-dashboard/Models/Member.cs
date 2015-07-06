@@ -9,6 +9,7 @@ namespace tfs_dashboard.Models
     public class Member
     {
         public string Name { get; private set; }
+        public bool Show { get; private set; }
         public List<Bug> BugsAssigned;
         public List<ChangeRequest> ChangeRequestsAssigned;
         public List<Requirement> RequirementsAssigned;
@@ -17,6 +18,7 @@ namespace tfs_dashboard.Models
         public Member(string name)
         {
             Name = name;
+            Show = true;
             BugsAssigned = new List<Bug>();
             ChangeRequestsAssigned = new List<ChangeRequest>();
             RequirementsAssigned = new List<Requirement>();

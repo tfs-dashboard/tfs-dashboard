@@ -4,16 +4,27 @@
         <ul class="nav navbar-nav navbar-left"
             <li>
                 <div ng-controller="SettingsController">
-                    <button type="button" class="dropdown-toggle customBtn" data-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="dropdown-toggle settings-btn" data-toggle="dropdown" aria-expanded="false">
                         <span class="glyphicon glyphicon-align-justify"></span>
                     </button>
 
-                    <ul class="dropdown-menu" style="height:120px" role="menu">
+                <ul class="dropdown-menu" style="height:120px; padding:0;" role="menu">
 
-                        <li><button class="connect-button" ng-click="openConnection()">Connect</button></li>
-                        <li role="presentation" class="divider"></li>
-                    </ul>
-                </div>
+            <li>
+            <button class="connect-button" ng-click="openConnection()">
+                <img style="float:left; margin-left:15px;vertical-align:middle; padding:0 "src="~/Content/appbar.connect.png" />
+                    <span style="vertical-align:middle; float:left; margin-top:6px; margin-right:2px">Connect</span>
+            </button>
+            </li>
+
+
+            <li role="presentation" class="vert-divider"></li>
+                <li>
+                    <button ng-disabled="!dashboard.itemsLoaded" class="connect-button" ng-click="">
+                        <img style="float:left; vertical-align:middle; padding:0;"src="~/Content/appbar.cog.png" />
+                            <span style="vertical-align:middle; float:left; margin-top:6px; margin-right:2px">Configuration</span>
+                    </button>
+                </li>
             </li>
         </ul>
     </div>

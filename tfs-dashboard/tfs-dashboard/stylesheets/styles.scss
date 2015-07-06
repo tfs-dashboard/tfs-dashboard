@@ -4,12 +4,21 @@
     opacity: 1;
     visibility: visible;
     background-color:#c05045;
-    border:thick;
-    margin-left:5px;
-    border-radius:0;
+    border:inset;
+    margin-left:0;
+    border-radius:5px;
+    font-weight:600;
+    border-color:#a93226;
+}
+
+.vert-divider {
+    border-bottom:inset;
+    border-color:#a93226;
+
 }
 
 .dropdown-menu {
+    font-weight:600;
     background-color:#c05045;
     display:block;
     opacity: 0;
@@ -18,9 +27,11 @@
     -moz-transition: opacity 500ms ease, visibility 500ms ease;
     -o-transition: opacity 500ms ease, visibility 500ms ease;
     transition: opacity 500ms ease, visibility 500ms ease;
-    border:thick;
-    margin-left:5px;
-    border-radius:0;
+    border:inset;
+    margin-left:0;
+    border-radius:5px;
+    font-weight:600;
+    border-color:#a93226;
 }
 
 .container-fluid {
@@ -164,8 +175,9 @@ user-select: none;
     color: white;
 }
 
-.customBtn {
+.settings-btn {
     padding: 0;
+    padding-left:7px;
     margin-top:2px;
     color: white;
     font-size: 2.0em;
@@ -198,6 +210,69 @@ user-select: none;
     font-size:18px;
 }
 
+[disabled] + .connect-button{
+    background-color:#000000;
+}
+
 /*.connect-button:hover{
     background-color:$brand-warning;
 }*/
+
+.modal-content {
+    background-color:#c05045;
+}
+
+.modal-header {
+    text-align: center;
+    color:white;
+    font-size:24px;
+    border: solid #a93226 1px;
+}
+
+.modal-body {
+    text-align: left;
+    color:white;
+    font-size:16px;
+    height:350px;
+    max-height:400px;
+    border: solid #a93226 1px;
+
+}
+
+.modal-footer {
+    text-align: center;
+    color:white;
+    font-size:16px;
+    border: solid #a93226 2px;
+    border-top:none;
+}
+
+.input-url {
+    color:black;
+    width:400px;
+}
+
+.connection-dropdown {
+    color:black;
+    width:300px;
+}
+
+.modal-btn {
+    width:100px;
+}
+
+.connect-btn {
+    color: white;
+    background-color:#cbc8c8;
+    border:solid 1px #a93226;
+}
+
+.connect-btn:focus {
+    color: white;
+    background-color:#cbc8c8;
+    border:solid 1px #a93226;
+}
+
+.connection-dropdown:disabled{
+    background-color:#e4e1e1;
+}

@@ -172,6 +172,8 @@
     <Content Include="App\services\tfsservice.js" />
     <Content Include="Config\ProjectConfiguration.xml" />
     <Content Include="Content\appbar.arrow.up.png" />
+    <Content Include="Content\appbar.cog.png" />
+    <Content Include="Content\appbar.connect.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

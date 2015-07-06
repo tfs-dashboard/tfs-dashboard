@@ -68,18 +68,18 @@ namespace tfs_dashboard.Models
             this.OverallEstimatedTime = 0;
             this.OverallRemainingTime = 0;
 
-            //foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
-            //{
-            //    WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);
-            //    if (item.Type.Name == "Task")
-            //    {
-            //        Task task = new Task(item);
-            //        this.TaskList.Add(task);
-            //        this.OverallCompletedTime += task.CompletedWork;
-            //        this.OverallEstimatedTime += task.OriginalEstimate;
-            //        this.OverallRemainingTime += task.RemainingWork;
-            //    }
-            //}
+            foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
+            {
+                WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);
+                if (item.Type.Name == "Task")
+                {
+                    Task task = new Task(item);
+                    this.TaskList.Add(task);
+                    this.OverallCompletedTime += task.CompletedWork;
+                    this.OverallEstimatedTime += task.OriginalEstimate;
+                    this.OverallRemainingTime += task.RemainingWork;
+                }
+            }
 
 
             this.Title = workItem.Title;

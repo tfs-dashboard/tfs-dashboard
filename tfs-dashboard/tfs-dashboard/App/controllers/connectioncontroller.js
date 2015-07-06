@@ -62,6 +62,8 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.collectionList = res.data;
             $scope.isUrlValid = true;
             $scope.conUrl = conUrl;
+            $scope.isProjectSelected = false;
+            $scope.isCollectionSelected = false;
         },
         (function (errorP1) {
             $scope.collectionList = null;
@@ -87,6 +89,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.projectList = res;
             $scope.isCollectionSelected = true;
             $scope.dashboard.selectedCollection = selectedCollection;
+            $scope.isProjectSelected = false;
         })
         .catch(function (errorP1) {
             $scope.isCollectionSelected = false;
@@ -126,9 +129,11 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.dashboard.testList = res;
             $modalInstance.dismiss();
             $scope.loadingQuery = false;
+            $scope.dashboard.itemsLoaded = true;
         })
         .catch(function () {
             $scope.loadingQuery = false;
+            $scope.dashboard.itemsLoaded = false;
         })
     }
 }]);
