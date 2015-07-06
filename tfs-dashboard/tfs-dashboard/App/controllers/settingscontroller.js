@@ -10,4 +10,13 @@ app.controller("SettingsController", function ($scope, $modal, $timeout) {
             controller: 'ConnectionController'
         });
     }
+
+    $scope.openConfig = function () {
+        var modalInstance = $modal.open({
+            animation: true,
+            show: false,
+            templateUrl: 'home/configurationmodal',
+            controller: "ConfigurationController"
+        });
+    }
 })

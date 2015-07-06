@@ -54,6 +54,7 @@ namespace tfs_dashboard
                 "~/App/filters.js",
                 "~/Scripts/common.js",
                 "~/App/controllers/connectioncontroller.js",
+                "~/App/controllers/configurationcontroller.js",
                 "~/App/directives/navigation.js",
                 "~/App/controllers/homecontroller.js",
                 "~/App/services/dashboardservice.js",

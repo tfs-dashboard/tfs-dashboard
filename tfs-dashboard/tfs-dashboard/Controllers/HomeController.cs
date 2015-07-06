@@ -30,5 +30,10 @@ namespace tfs_dashboard.Controllers
         {
             return View();
         }
+
+        public ActionResult ConfigurationModal()
+        {
+            return View();
+        }
     }
 }

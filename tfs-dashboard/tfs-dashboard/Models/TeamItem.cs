@@ -81,7 +81,6 @@ namespace tfs_dashboard.Models
                 }
             }
 
-
             this.Title = workItem.Title;
             this.State = workItem.State;
             this.Id = workItem.Id;

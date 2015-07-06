@@ -1,6 +1,6 @@
 ﻿var app = angular.module('tfsApp')
 
-app.controller("HomeController", ['$scope', 'dashboard', function ($scope, dashboard) {
+app.controller("HomeController", ['$scope', 'dashboard', '$interval', function ($scope, dashboard, $interval) {
     $scope.dashboard = dashboard;
     $scope.dashboard.itemsLoaded = false;
     $scope.details = {
@@ -28,6 +28,14 @@ app.controller("HomeController", ['$scope', 'dashboard', function ($scope, dashb
         else {
             return false;
         }
+    }
+
+    $scope.startRefresh = function () {
+        $scope.stop();
+
+        promise = $interval(function () {
+
+        }, $scope.dashboard.minutesBetweenRefresh)
     }
 }])
 ;

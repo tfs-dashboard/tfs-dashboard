@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\controllers\configurationcontroller.js" />
     <Content Include="App\controllers\homecontroller.js" />
     <Content Include="App\controllers\connectioncontroller.js" />
     <Content Include="App\directives\navigation.js" />
@@ -1162,9 +1163,11 @@
     </Content>
     <Content Include="Views\Home\ConnectionModal.cshtml" />
     <Content Include="Views\Home\TaskPopover.cshtml" />
+    <Content Include="Views\Home\ConfigurationModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

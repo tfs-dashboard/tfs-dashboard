@@ -17,4 +17,4 @@ app.filter('workItemsState', function () {
         })
         return filtered;
     }
-})
+});

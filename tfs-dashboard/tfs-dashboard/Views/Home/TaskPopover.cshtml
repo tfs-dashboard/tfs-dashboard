@@ -14,11 +14,11 @@
             <p ng-show="!workItem.Blocked"> Blocked: No</p>
         </div>
 
-        <div class="task-desc col-md-2 text-left">Id</div>
-        <div class="task-desc col-md-4 text-left">Task</div>
-        <div class="task-desc col-md-2 text-left">Estimated</div>
-        <div class="task-desc col-md-2 text-left">Completed</div>
-        <div class="task-desc col-md-2 text-left">Remaining</div>
+        <div class="col-md-2 text-left task-desc">Id</div>
+        <div class="col-md-4 text-left task-desc">Task</div>
+        <div class="col-md-2 text-left task-desc">Estimated</div>
+        <div class="col-md-2 text-left task-desc">Completed</div>
+        <div class="col-md-2 text-left task-desc">Remaining</div>
 
         <div ng-repeat="task in workItem.TaskList">
             <div class="row text-left task-desc" style="display:normal;">

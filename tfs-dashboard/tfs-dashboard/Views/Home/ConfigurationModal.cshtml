@@ -1,0 +1,25 @@
+﻿
+<div class="modal-content">
+    <div class="modal-header">
+        <span>Configuration</span>
+    </div>
+
+    <div class="modal-body">
+
+        <span> Members:</span>
+        <div style="color:azure" ng-repeat="member in dashboard.testList.members track by $index">
+            <row>
+                <div class="col-md-6">
+                    {{member.Name}}
+                </div>
+                <div class="col-md-6">
+                    <input type="checkbox" ng-model="member.Show"/>
+                </div>
+            </row>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-danger modal-btn" ng-click="cancel()">Close</button>
+    </div>
+</div>
