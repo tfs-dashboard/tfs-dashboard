@@ -120,6 +120,15 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
         $scope.dashboard.selectedQuery = null;
     }
 
+    function checkShowStatus(memberList) {
+        angular.forEach(memberList, function (member) {
+            var tempValue = localStorageService.get(member.Name + " in " + $scope.dashboard.selectedQuery);
+            if (!(tempValue === null)) {
+                member.Show = tempValue;
+            };
+        });
+    }
+
     $scope.getWorkItems = function (selectedQuery, selectedProject) {
         $scope.loadingQuery = true;
         var gotWorkItemsPromise = tfsService.GetWorkItems(selectedQuery, selectedProject.Name);
@@ -127,6 +136,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.dashboard.selectedQuery = selectedQuery;
             submit('selectedQuery', selectedQuery);
             $scope.dashboard.testList = res;
+            checkShowStatus($scope.dashboard.testList.members);
             $modalInstance.dismiss();
             $scope.loadingQuery = false;
             $scope.dashboard.itemsLoaded = true;

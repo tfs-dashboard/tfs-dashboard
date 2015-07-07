@@ -31,6 +31,7 @@
     margin-left:0;
     border-radius:5px;
     font-weight:600;
+    width:180px;
     border-color:#a93226;
 }
 
@@ -231,6 +232,7 @@ user-select: none;
 
 .modal-content {
     background-color:#c05045;
+    height:auto;
 }
 
 .modal-header {
@@ -244,9 +246,10 @@ user-select: none;
     text-align: left;
     color:white;
     font-size:16px;
-    height:350px;
-    max-height:400px;
+    height:auto;
+    min-height:350px;
     border: solid #a93226 1px;
+    overflow-y:auto;    
 
 }
 
@@ -265,7 +268,7 @@ user-select: none;
 
 .connection-dropdown {
     color:black;
-    width:300px;
+    width:320px;
 }
 
 .modal-btn {

@@ -1,30 +1,32 @@
 ﻿<nav class="navbar customBar navbar-collapse" role="navigation" style="width:1902px">
     <p class="navbar-brand" style=" width:1902px; margin:0; padding:0;" ng-bind-template="Collection: {{dashboard.selectedCollection.Name}}, Project: {{dashboard.selectedProject.Name}} , Query: {{dashboard.selectedQuery}} "></p>
     <div class="navbar-collapse collapse" style="width:1902px; padding:0">
-        <ul class="nav navbar-nav navbar-left"
+        <ul class="nav navbar-nav navbar-left">
             <li>
                 <div ng-controller="SettingsController">
                     <button type="button" class="dropdown-toggle settings-btn" data-toggle="dropdown" aria-expanded="false">
                         <span class="glyphicon glyphicon-align-justify"></span>
                     </button>
 
-                <ul class="dropdown-menu" style="height:120px; padding:0;" role="menu">
+                    <ul class="dropdown-menu" style="height: 120px; padding: 0;" role="menu">
 
-            <li>
-            <button class="connect-button" ng-click="openConnection()">
-                <img style="float:left; margin-left:15px;vertical-align:middle; padding:0 "src="~/Content/appbar.connect.png" />
-                    <span style="vertical-align:middle; float:left; margin-top:6px; margin-right:2px">Connect</span>
-            </button>
-            </li>
+                        <li>
+                            <button class="connect-button" ng-click="openConnection()">
+                                <img style="float: left; margin-left: 15px; vertical-align: middle; padding: 0" src="~/Content/appbar.connect.png" />
+                                <span style="vertical-align: middle; float: left; margin-top: 6px; margin-right: 2px">Connect</span>
+                            </button>
+                        </li>
 
 
-            <li role="presentation" class="vert-divider"></li>
-                <li>
-                    <button ng-disabled="!dashboard.itemsLoaded" class="connect-button" ng-click="openConfig()">
-                        <img style="float:left; vertical-align:middle; padding:0;"src="~/Content/appbar.cog.png" />
-                            <span style="vertical-align:middle; float:left; margin-top:6px; margin-right:2px">Configuration</span>
-                    </button>
-                </li>
+                        <li role="presentation" class="vert-divider"></li>
+                        <li>
+                            <button ng-disabled="!dashboard.itemsLoaded" class="connect-button" ng-click="openConfig()">
+                                <img style="float: left; vertical-align: middle; padding: 0;" src="~/Content/appbar.cog.png" />
+                                <span style="vertical-align: middle; float: left; margin-top: 6px; margin-right: 2px">Configuration</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </div>

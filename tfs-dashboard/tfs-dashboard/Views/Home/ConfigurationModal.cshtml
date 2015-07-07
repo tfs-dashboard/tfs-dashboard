@@ -13,7 +13,7 @@
                     {{member.Name}}
                 </div>
                 <div class="col-md-6">
-                    <input type="checkbox" ng-model="member.Show"/>
+                    <input type="checkbox" ng-model="member.Show" ng-change="submitMemberShow(member, dashboard.selectedQuery)"/>
                 </div>
             </row>
         </div>
