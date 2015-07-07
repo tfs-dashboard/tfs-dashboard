@@ -26,7 +26,7 @@ namespace tfs_dashboard.Models
             {
                 if (field.Name == "Blocked")
                 {
-                    this.Blocked = (string)field.Value == "Yes" ? true : false;
+                    Blocked = (string)field.Value == "Yes";
                 }
                 if (field.Name == "Assigned To")
                 {

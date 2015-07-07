@@ -1,0 +1,22 @@
+﻿<div tabindex="0" popover-trigger="focus" popover-placement="bottom" rel="popover" data-color="{{workItem.color}}" popover-template="details.templateUrl" style="padding: 3px;" ng-click="color(workItem)"
+     ng-class="{'change-request': workItem.Type == 'ChangeRequest', 'bug': workItem.Type == 'Bug', 'requirement': workItem.Type == 'Requirement'}" class="col-md-1">
+
+    <p style="margin: 0; padding: 0;">{{workItem.Id}}:</p>
+
+    <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float: right"/>
+
+    <p class="no-margin-text">{{workItem.Title | limitTo: 35}}..</p>
+
+    <span class="no-margin-text">E:</span>
+    <span class="no-margin-text-bold">{{workItem.OverallEstimatedTime}}</span>
+    <span class="no-margin-text">/ C:</span>
+    <span class="no-margin-text-bold">{{workItem.OverallCompletedTime}}</span>
+    <span class="no-margin-text">/ R: </span>
+    <span class="no-margin-text-bold">{{workItem.OverallRemainingTime}}</span>
+
+
+    <div ng-class="{'change-request-overdue': workItem.Type == 'ChangeRequest', 'bug-overdue': workItem.Type == 'Bug', 'requirement-overdue': workItem.Type == 'Requirement'}" 
+         ng-show="ifWorkItemOverdue(workItem)">
+        <p>{{workItem.overdueTime}} {{workItem.hoursMsg}} overdue</p>
+    </div>
+</div>

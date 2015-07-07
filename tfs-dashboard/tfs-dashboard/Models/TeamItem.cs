@@ -68,6 +68,7 @@ namespace tfs_dashboard.Models
             this.OverallEstimatedTime = 0;
             this.OverallRemainingTime = 0;
 
+
             foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
             {
                 WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);

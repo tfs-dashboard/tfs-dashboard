@@ -168,10 +168,12 @@
     <Content Include="App\controllers\connectioncontroller.js" />
     <Content Include="App\directives\navigation.js" />
     <Content Include="App\controllers\settingscontroller.js" />
+    <Content Include="App\directives\ticket.js" />
     <Content Include="App\filters.js" />
     <Content Include="App\services\dashboardservice.js" />
     <Content Include="App\services\tfsservice.js" />
     <Content Include="Config\ProjectConfiguration.xml" />
+    <Content Include="Content\appbar-cancel-small.png" />
     <Content Include="Content\appbar.arrow.up.png" />
     <Content Include="Content\appbar.cog.png" />
     <Content Include="Content\appbar.connect.png" />
@@ -1164,6 +1166,7 @@
     <Content Include="Views\Home\ConnectionModal.cshtml" />
     <Content Include="Views\Home\TaskPopover.cshtml" />
     <Content Include="Views\Home\ConfigurationModal.cshtml" />
+    <Content Include="Views\Home\Ticket.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

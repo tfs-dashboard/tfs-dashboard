@@ -3,7 +3,7 @@
     <link href="~/stylesheets/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container-fluid" ng-controller="HomeController">
+    <div id="container" class="container-fluid" ng-controller="HomeController">
         <div class="row" style="height:30px;">
             <navigation-bar></navigation-bar>
         </div>
@@ -38,39 +38,13 @@
                 <div ng-repeat="n in [1,2,3,4,5]">
                     <div style="padding:0" class="col-md-2 normal-box">
                         <div ng-repeat="workItem in member.BugsAssigned | workItemsState:n">
-                            <div tabindex="0" rel="popover" data-color="red" popover-trigger="focus" popover-placement="bottom" popover-template="details.templateUrl" style="padding:3px;" class="bug col-md-1">
-                                <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
-                                <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
-                                <p style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
-                                <p style="margin:0; padding:0">C:{{workItem.OverallCompletedTime}} / E: {{workItem.OverallEstimatedTime}} / R: {{workItem.OverallRemainingTime}}</p>
-                                <div>
-                                    <div class="bug-overdue" ng-show="ifWorkItemOverdue(workItem)">
-                                        <p>{{workItem.overdueTime}} {{workItem.hoursMsg}} overdue</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <ticket></ticket>
                         </div>
                         <div ng-repeat="workItem in member.ChangeRequestsAssigned | workItemsState:n">
-                            <div tabindex="0" popover-trigger="focus" popover-placement="bottom" rel="popover" data-color="blue" popover-template="details.templateUrl" style="padding:3px;" class="change-request col-md-1">
-                                <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
-                                <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
-                                <p style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
-                                <p style="margin:0; padding:0">C:{{workItem.OverallCompletedTime}} / E: {{workItem.OverallEstimatedTime}} / R: {{workItem.OverallRemainingTime}}</p>
-                                <div class="change-request-overdue" ng-show="ifWorkItemOverdue(workItem)">
-                                    <p>{{workItem.overdueTime}} {{workItem.hoursMsg}} overdue</p>
-                                </div>
-                            </div>
+                            <ticket></ticket>
                         </div>
                         <div ng-repeat="workItem in member.RequirementsAssigned | workItemsState:n">
-                            <div tabindex="0" popover-trigger="focus" rel="popover" data-color="green" popover-placement="bottom" popover-template="details.templateUrl" style="padding:3px;" class="requirement col-md-1">
-                                <p style="margin:0; padding:0;">{{workItem.Id}}:</p>
-                                <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float:right" />
-                                <p style="margin:0; padding:0;">{{workItem.Title | limitTo: 35}}..</p>
-                                <p style="margin:0; padding:0">C:{{workItem.OverallCompletedTime}} / E: {{workItem.OverallEstimatedTime}} / R: {{workItem.OverallRemainingTime}}</p>
-                                <div class="requirement-overdue" ng-show="ifWorkItemOverdue(workItem)">
-                                    <p>{{workItem.overdueTime}} {{workItem.hoursMsg}} overdue</p>
-                                </div>
-                            </div>
+                            <ticket></ticket>
                         </div>
                     </div>
                 </div>

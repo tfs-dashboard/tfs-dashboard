@@ -35,5 +35,10 @@ namespace tfs_dashboard.Controllers
         {
             return View();
         }
+
+        public ActionResult Ticket()
+        {
+            return View();
+        }
     }
 }

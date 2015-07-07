@@ -106,14 +106,25 @@ user-select: none;
 .popover{
     color:white;
     border:solid 3px black;
-    width:475px;
+    width:480px;
     max-height:none;
     height:auto;
-    max-width:500px;
+    max-width:600px;
     margin-bottom:100px;
     right:10px;
 }
 
+.task-row {
+    margin-left:-5px;
+}
+.no-margin-text{
+     margin: 0; padding: 0;
+}
+
+.no-margin-text-bold {
+    @extend .no-margin-text;
+    font-weight:900;
+}
 [rel=popover][data-color=red] + .popover {
     background-color:#c05045;
 }
