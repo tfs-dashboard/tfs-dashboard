@@ -6,8 +6,15 @@
 
     <div class="modal-body">
 
+        <span> Limits:</span><br/>
+        <span>Backlog</span> <input type="range" min="0" max="10" step="1" style="width: 200px;"/><br/>
+        <span>In Work</span><input type="range" min="0" max="10" step="1" style="width: 200px;" /><br />
+        <span>Waiting for test</span><input type="range" min="0" max="10" step="1" style="width: 200px;" /><br />
+        <span>In test</span><input type="range" min="0" max="10" step="1" style="width: 200px;" /><br />
+        <span>Waiting for release</span><input type="range" min="0" max="10" step="1" style="width: 200px;" /><br />
+
         <span> Members:</span>
-        <div style="color:azure" ng-repeat="member in dashboard.testList.members track by $index">
+        <div style="color:azure" ng-repeat="member in dashboard.testList.Members track by $index">
             <row>
                 <div class="col-md-6">
                     {{member.Name}}

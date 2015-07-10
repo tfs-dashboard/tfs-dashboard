@@ -15,8 +15,19 @@
     <span class="no-margin-text-bold">{{workItem.OverallRemainingTime}}</span>
 
 
-    <div ng-class="{'change-request-overdue': workItem.Type == 'ChangeRequest', 'bug-overdue': workItem.Type == 'Bug', 'requirement-overdue': workItem.Type == 'Requirement'}" 
+    <div ng-class="{'change-request-overdue': workItem.Type == 'ChangeRequest', 'bug-overdue': workItem.Type == 'Bug', 'requirement-overdue': workItem.Type == 'Requirement'}"
          ng-show="ifWorkItemOverdue(workItem)">
         <p>{{workItem.overdueTime}} {{workItem.hoursMsg}} overdue</p>
     </div>
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $('#asz').popover({
+            html: true,
+            trigger: 'manual'
+        }).click(function () {
+            $(this).popover('show');
+        });
+    });
+</script>

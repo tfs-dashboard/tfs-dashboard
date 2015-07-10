@@ -39,6 +39,7 @@
     max-width:1920px;
     min-height: 1080px;
     background-color: #000000;
+    overflow:auto;
 }
 
 .box {
@@ -89,7 +90,6 @@ user-select: none;
     @extend .square;
     background: #c05045;
 }
-
 .popover.bottom>.arrow:after {
     display:none;
 }
@@ -113,6 +113,8 @@ user-select: none;
     max-width:600px;
     margin-bottom:100px;
     right:10px;
+    position:absolute;
+
 }
 
 .task-row {

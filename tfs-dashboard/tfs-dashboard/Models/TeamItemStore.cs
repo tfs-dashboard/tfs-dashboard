@@ -1,50 +1,44 @@
-﻿using Microsoft.TeamFoundation.WorkItemTracking.Client;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Script.Serialization;
+using Microsoft.TeamFoundation.WorkItemTracking.Client;
 
 namespace tfs_dashboard.Models
 {
     public class TeamItemStore
     {
-        public ICollection<Member> members;
+        public ICollection<Member> Members;
 
         [ScriptIgnore]
-        public WorkItemStore workItemStore;
+        public WorkItemStore WorkItemStore;
 
         public TeamItemStore(WorkItemCollection collection, WorkItemStore workItemStore)
         {
-            this.workItemStore = workItemStore;
+            WorkItemStore = workItemStore;
             PopulateMemberNames(collection);
             foreach (WorkItem workItem in collection)
             {
-                string assignedTo = (string)workItem["Assigned To"];
+                var assignedTo = (string)workItem["Assigned To"];
                 AddWorkItemToMember(workItem, assignedTo);
             }
         }
 
         private void AddWorkItemToMember(WorkItem workItem, string memberName)
         {
-            Member member = members.Where(m => m.Name == memberName).First();
-            member.AddWorkItem(workItem, workItemStore);
+            var member = Members.First(m => m.Name == memberName);
+            member.AddWorkItem(workItem, WorkItemStore);
         }
 
         private void PopulateMemberNames(WorkItemCollection collection)
         {
-            members = new List<Member>();
-            List<string> names = new List<string>();
+            Members = new List<Member>();
+            var names = (from WorkItem workitem in collection select (string) workitem["Assigned To"]).ToList();
 
-            foreach (WorkItem workitem in collection)
-            {
-                names.Add((string)workitem["Assigned To"]);
-            }
             names = names.Distinct().ToList();
 
             foreach (string name in names)
             {
-                members.Add(new Member(name));
+                Members.Add(new Member(name));
             }
         }
     }

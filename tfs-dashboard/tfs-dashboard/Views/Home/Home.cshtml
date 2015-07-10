@@ -3,7 +3,7 @@
     <link href="~/stylesheets/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="container" class="container-fluid" ng-controller="HomeController">
+    <div  id="container" class="container-fluid" ng-controller="HomeController">
         <div class="row" style="height:30px;">
             <navigation-bar></navigation-bar>
         </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div style="color:azure" ng-repeat="member in dashboard.testList.members track by $index">
+        <div style="color:azure" ng-repeat="member in dashboard.testList.Members track by $index">
             <div class="row" ng-show="member.Show">
                 <div class="col-md-1 normal-box">
                     {{member.Name}}

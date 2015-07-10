@@ -129,6 +129,10 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
         });
     }
 
+
+    function checkForColumnLimits() {
+        angular.forEach(member)
+    }
     $scope.getWorkItems = function (selectedQuery, selectedProject) {
         $scope.loadingQuery = true;
         var gotWorkItemsPromise = tfsService.GetWorkItems(selectedQuery, selectedProject.Name);
@@ -136,7 +140,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.dashboard.selectedQuery = selectedQuery;
             submit('selectedQuery', selectedQuery);
             $scope.dashboard.testList = res;
-            checkShowStatus($scope.dashboard.testList.members);
+            checkShowStatus($scope.dashboard.testList.Members);
             $modalInstance.dismiss();
             $scope.loadingQuery = false;
             $scope.dashboard.itemsLoaded = true;

@@ -9,7 +9,7 @@ app.controller("HomeController", [
         };
 
         $scope.color = function (workItem) {
-            switch(workItem.Type) {
+            switch (workItem.Type) {
                 case "Bug":
                     workItem.color = "red";
                     break;
@@ -21,6 +21,7 @@ app.controller("HomeController", [
                     break;
             }
         };
+
 
 
         $scope.ifWorkItemOverdue = function (workItem) {
@@ -50,5 +51,15 @@ app.controller("HomeController", [
 
             }, $scope.dashboard.minutesBetweenRefresh);
         };
+
+        $scope.checkPos = function (e) {
+            var left = e.currentTarget.offsetParent.offsetLeft;
+            if (left >= 1920 - 600) {
+                $scope.PopoverPosition = "left";
+            }
+            if (left <= 600) {
+                $scope.PopoverPosition = "right";
+            }
+        }
     }
 ]);

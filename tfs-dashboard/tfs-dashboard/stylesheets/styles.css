@@ -5669,7 +5669,8 @@ button.close {
 .container-fluid {
   max-width: 1920px;
   min-height: 1080px;
-  background-color: #000000; }
+  background-color: #000000;
+  overflow: auto; }
 
 .box, .mini-box, .bot-mini-box, .normal-box, .big-box {
   color: white;
@@ -5727,7 +5728,8 @@ button.close {
   height: auto;
   max-width: 600px;
   margin-bottom: 100px;
-  right: 10px; }
+  right: 10px;
+  position: absolute; }
 
 .task-row {
   margin-left: -5px; }
