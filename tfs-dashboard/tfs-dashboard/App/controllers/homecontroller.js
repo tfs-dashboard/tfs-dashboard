@@ -8,6 +8,15 @@ app.controller("HomeController", [
             templateUrl: "home/taskpopover"
         };
 
+
+
+        $scope.dashboard.columnList = [ { Name: "Backlog", Value: 4 },
+                                        { Name: "In Work", Value: 2 },
+                                        { Name: "Waiting For Test", Value: 0 },
+                                        { Name: "For Test", Value: 1 },
+                                        { Name: "Waiting For Release", Value: 0 }];
+
+
         $scope.color = function (workItem) {
             switch (workItem.Type) {
                 case "Bug":
@@ -44,6 +53,15 @@ app.controller("HomeController", [
                 return false;
             };
         };
+
+        $scope.ifOverLimit = function (member, column) {
+            if (column.Value === 0)
+                return false;
+            if (member[column.Name.replace(/\s+/g, '')] > column.Value) {
+                return true;
+            }
+            return false;
+        }
 
         $scope.startRefresh = function () {
             $scope.stop();

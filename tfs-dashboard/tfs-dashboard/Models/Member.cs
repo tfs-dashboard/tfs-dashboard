@@ -15,6 +15,11 @@ namespace tfs_dashboard.Models
         public List<ChangeRequest> ChangeRequestsAssigned;
         public List<Requirement> RequirementsAssigned;
 
+        public int Backlog;
+        public int InWork;
+        public int WaitingForTest;
+        public int InTest;
+        public int WaitingForRelease;
 
         public Member(string name)
         {
@@ -39,6 +44,16 @@ namespace tfs_dashboard.Models
                     ChangeRequestsAssigned.Add(new ChangeRequest(workItem, workItemStore));
                     break;
             }
+        }
+
+        public void CountTicketsInColumn()
+        {
+            Backlog = BugsAssigned.Count(m => m.Status == "Backlog") + RequirementsAssigned.Count(m => m.Status == "Backlog") + ChangeRequestsAssigned.Count(m => m.Status == "Backlog");
+            InWork = BugsAssigned.Count(m => m.Status == "In Work") + RequirementsAssigned.Count(m => m.Status == "In Work") + ChangeRequestsAssigned.Count(m => m.Status == "In Work");
+            WaitingForTest = BugsAssigned.Count(m => m.Status == "Waiting For Test") + RequirementsAssigned.Count(m => m.Status == "Waiting For Test") + ChangeRequestsAssigned.Count(m => m.Status == "Waiting For Test");
+            InTest = BugsAssigned.Count(m => m.Status == "In Test") + RequirementsAssigned.Count(m => m.Status == "In Test") + ChangeRequestsAssigned.Count(m => m.Status == "In Test");
+            WaitingForRelease = BugsAssigned.Count(m => m.Status == "Waiting For Release") + RequirementsAssigned.Count(m => m.Status == "Waiting For Release") + ChangeRequestsAssigned.Count(m => m.Status == "Waiting For Release");
+
         }
     }
 }

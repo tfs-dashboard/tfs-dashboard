@@ -6,13 +6,11 @@
 
     <div class="modal-body">
 
-        <span> Limits:</span><br/>
-        <span>Backlog</span> <input type="range" min="0" max="10" step="1" style="width: 200px;"/><br/>
-        <span>In Work</span><input type="range" min="0" max="10" step="1" style="width: 200px;" /><br />
-        <span>Waiting for test</span><input type="range" min="0" max="10" step="1" style="width: 200px;" /><br />
-        <span>In test</span><input type="range" min="0" max="10" step="1" style="width: 200px;" /><br />
-        <span>Waiting for release</span><input type="range" min="0" max="10" step="1" style="width: 200px;" /><br />
-
+        <span> Limits:</span><br />
+        <div ng-repeat="column in dashboard.columnList">
+            {{column.Name}} <input type="range" min="0" max="10" step="1" ng-model="column.Value" style="width: 200px;" ng-change="submitLimit(column)"/>
+            <span>{{column.Value}}</span>
+        </div>
         <span> Members:</span>
         <div style="color:azure" ng-repeat="member in dashboard.testList.Members track by $index">
             <row>
@@ -20,7 +18,7 @@
                     {{member.Name}}
                 </div>
                 <div class="col-md-6">
-                    <input type="checkbox" ng-model="member.Show" ng-change="submitMemberShow(member, dashboard.selectedQuery)"/>
+                    <input type="checkbox" ng-model="member.Show" ng-change="submitMemberShow(member, dashboard.selectedQuery)" />
                 </div>
             </row>
         </div>

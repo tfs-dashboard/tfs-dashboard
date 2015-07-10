@@ -4,10 +4,6 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
 
     $scope.dashboard = dashboard;
 
-    $scope.selectedCollection;
-    $scope.selectedProject;
-    $scope.selectedQuery;
-    $scope.isUrlValid;
     $scope.showModal = false;
     $scope.loadingQuery = false;
     $scope.cancel = function () {
@@ -131,7 +127,12 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
 
 
     function checkForColumnLimits() {
-        angular.forEach(member)
+        angular.forEach($scope.dashboard.columnList, (function (column) {
+            var tempValue = localStorageService.get(column.Name + " in " + $scope.dashboard.selectedQuery);
+            if (!(tempValue === null)) {
+                column.Value = tempValue;
+            }
+        }));
     }
     $scope.getWorkItems = function (selectedQuery, selectedProject) {
         $scope.loadingQuery = true;
@@ -141,6 +142,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             submit('selectedQuery', selectedQuery);
             $scope.dashboard.testList = res;
             checkShowStatus($scope.dashboard.testList.Members);
+            checkForColumnLimits();
             $modalInstance.dismiss();
             $scope.loadingQuery = false;
             $scope.dashboard.itemsLoaded = true;

@@ -21,6 +21,7 @@ namespace tfs_dashboard.Models
                 var assignedTo = (string)workItem["Assigned To"];
                 AddWorkItemToMember(workItem, assignedTo);
             }
+            CountTicketAmount();
         }
 
         private void AddWorkItemToMember(WorkItem workItem, string memberName)
@@ -36,9 +37,17 @@ namespace tfs_dashboard.Models
 
             names = names.Distinct().ToList();
 
-            foreach (string name in names)
+            foreach (var name in names)
             {
                 Members.Add(new Member(name));
+            }
+        }
+
+        private void CountTicketAmount()
+        {
+            foreach (var member in Members)
+            {
+                member.CountTicketsInColumn();
             }
         }
     }

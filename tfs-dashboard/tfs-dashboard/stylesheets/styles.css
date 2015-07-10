@@ -5720,6 +5720,9 @@ button.close {
   font-size: 18px;
   text-align: center; }
 
+.warning-bg {
+  background-color: yellow; }
+
 .popover {
   color: white;
   border: solid 3px black;

@@ -3,7 +3,7 @@
     <link href="~/stylesheets/styles.css" rel="stylesheet" />
 </head>
 <body>
-    <div  id="container" class="container-fluid" ng-controller="HomeController">
+    <div id="container" class="container-fluid" ng-controller="HomeController">
         <div class="row" style="height:30px;">
             <navigation-bar></navigation-bar>
         </div>
@@ -35,17 +35,19 @@
                 <div class="col-md-1 normal-box">
                     {{member.Name}}
                 </div>
-                <div ng-repeat="n in [1,2,3,4,5]">
-                    <div style="padding:0" class="col-md-2 normal-box">
-                        <div ng-repeat="workItem in member.BugsAssigned | workItemsState:n">
+                <div ng-repeat="column in dashboard.columnList">
+                    <div style="padding: 0" class="col-md-2 normal-box" ng-class="{'warning-bg' : ifOverLimit(member, column)}">
+
+                        <div ng-repeat="workItem in member.BugsAssigned | workItemsState:column.Name">
                             <ticket></ticket>
                         </div>
-                        <div ng-repeat="workItem in member.ChangeRequestsAssigned | workItemsState:n">
+                        <div ng-repeat="workItem in member.ChangeRequestsAssigned | workItemsState:column.Name">
                             <ticket></ticket>
                         </div>
-                        <div ng-repeat="workItem in member.RequirementsAssigned | workItemsState:n">
+                        <div ng-repeat="workItem in member.RequirementsAssigned | workItemsState:column.Name">
                             <ticket></ticket>
                         </div>
+                        </>
                     </div>
                 </div>
             </div>

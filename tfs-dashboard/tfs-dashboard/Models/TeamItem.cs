@@ -20,7 +20,6 @@ namespace tfs_dashboard.Models
         public int OverallEstimatedTime { get; private set; }
         public int OverallCompletedTime { get; private set; }
         public int OverallRemainingTime { get; private set; }
-
         public string Type { get; protected set; }
 
         public TeamItem(WorkItem workItem, WorkItemStore workItemStore)
@@ -47,19 +46,18 @@ namespace tfs_dashboard.Models
             switch (workItem.State)
             {
                 case "Proposed":
-                    if (this.Priority < 4)
-                        this.Status = "Backlog";
+                    this.Status = "Backlog";
                     break;
                 case "Active":
-                    this.Status = "In work";
+                    this.Status = "In Work";
                     break;
                 case "Resolved":
                     if (this.VerificationStatus == "Not Executed")
-                        this.Status = "Waiting for test";
+                        this.Status = "Waiting For Test";
                     else if (this.VerificationStatus == "Resolved")
-                        this.Status = "In test";
+                        this.Status = "In Test";
                     else if (this.VerificationStatus == "Passed")
-                        this.Status = "Waiting for release";
+                        this.Status = "Waiting For Release";
                     break;
             }
 
@@ -69,18 +67,18 @@ namespace tfs_dashboard.Models
             this.OverallRemainingTime = 0;
 
 
-            foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
-            {
-                WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);
-                if (item.Type.Name == "Task")
-                {
-                    Task task = new Task(item);
-                    this.TaskList.Add(task);
-                    this.OverallCompletedTime += task.CompletedWork;
-                    this.OverallEstimatedTime += task.OriginalEstimate;
-                    this.OverallRemainingTime += task.RemainingWork;
-                }
-            }
+            //foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
+            //{
+            //    WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);
+            //    if (item.Type.Name == "Task")
+            //    {
+            //        Task task = new Task(item);
+            //        this.TaskList.Add(task);
+            //        this.OverallCompletedTime += task.CompletedWork;
+            //        this.OverallEstimatedTime += task.OriginalEstimate;
+            //        this.OverallRemainingTime += task.RemainingWork;
+            //    }
+            //}
 
             this.Title = workItem.Title;
             this.State = workItem.State;

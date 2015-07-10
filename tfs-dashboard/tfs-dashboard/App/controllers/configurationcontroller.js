@@ -15,4 +15,9 @@ app.controller("ConfigurationController", ['$scope', '$modalInstance', 'dashboar
         var key = member.Name + " in " + $scope.dashboard.selectedQuery;
         submit(key, member.Show);
     };
+
+    $scope.submitLimit = function(column) {
+        var key = column.Name + " in " + $scope.dashboard.selectedQuery;
+        submit(key, column.Value);
+    }
 }])
