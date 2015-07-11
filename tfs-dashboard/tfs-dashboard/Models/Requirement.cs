@@ -11,7 +11,7 @@ namespace tfs_dashboard.Models
         public Requirement(WorkItem workItem, WorkItemStore workItemStore)
             : base(workItem, workItemStore)
         {
-            base.Type = "Requirement";
+            Type = "Requirement";
         }
     }
 }

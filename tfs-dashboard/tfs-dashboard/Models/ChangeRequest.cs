@@ -10,7 +10,7 @@ namespace tfs_dashboard.Models
         public ChangeRequest(WorkItem workItem, WorkItemStore workItemStore)
             : base(workItem, workItemStore)
         {
-            base.Type = "ChangeRequest";
+            Type = "ChangeRequest";
         }
     }
 }

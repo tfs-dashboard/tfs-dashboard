@@ -1,9 +1,10 @@
-﻿var app = angular.module('tfsApp')
+﻿var app = angular.module('tfsApp');
 
 app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageService', '$modalInstance', 'dashboard', '$q', '$timeout', function ($scope, tfsService, localStorageService, $modalInstance, dashboard, $q, $timeout) {
 
     $scope.dashboard = dashboard;
 
+    $scope.dashboard.refreshRate = 1;
     $scope.showModal = false;
     $scope.loadingQuery = false;
     $scope.cancel = function () {
@@ -31,14 +32,14 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
                         var tempCollection = localStorageService.get("selectedCollection");
                         if (!(tempCollection === null)) {
                             var projectPromise = tfsService.GetProjectInfo(tempCollection.Name);
-                            projectPromise.then(function(res) {
+                            projectPromise.then(function (res) {
                                 $scope.projectList = res;
                                 $scope.isCollectionSelected = true;
                                 $scope.dashboard.selectedCollection = tempCollection;
                                 var tempProject = localStorageService.get("selectedProject");
                                 if (!(tempProject === null)) {
                                     var queryPromise = tfsService.GetSharedQueries(tempProject.Name);
-                                    queryPromise.then(function(res) {
+                                    queryPromise.then(function (res) {
                                         $scope.dashboard.selectedProject = tempProject;
                                         $scope.isProjectSelected = true;
                                         $scope.queriesList = res;
@@ -52,7 +53,9 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
                         } else {
                             $scope.showModal = true;
                         }
-                    });
+                    }, (function (errorP1) {
+                        $scope.showModal = true;
+                    }));
                 } else {
                     $scope.showModal = true;
                 }
@@ -75,7 +78,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.collectionList = null;
             $scope.isUrlValid = false;
             $scope.isCollectionSelected = false;
-        }))
+        }));
 
         $scope.dashboard.selectedCollection = null;
         $scope.dashboard.selectedProject = null;
@@ -97,9 +100,9 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.dashboard.selectedCollection = selectedCollection;
             $scope.isProjectSelected = false;
         })
-        .catch(function (errorP1) {
-            $scope.isCollectionSelected = false;
-        })
+            .catch(function (errorP1) {
+                $scope.isCollectionSelected = false;
+            });
         $scope.dashboard.selectedProject = null;
         $scope.dashboard.selectedQuery = null;
         $scope.queriesList = null;
@@ -108,8 +111,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
     //changing selected project
     $scope.selectProject = function (selectedProject) {
         $scope.queriesList = null;
-        var validProjectPromise = tfsService.GetSharedQueries(selectedProject.Name)
-
+        var validProjectPromise = tfsService.GetSharedQueries(selectedProject.Name);
         $scope.dashboard.selectedProject = selectedProject;
         validProjectPromise.then(function (res) {
             submit('selectedProject', selectedProject);
@@ -118,10 +120,10 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.isProjectSelected = true;
 
         })
-        .catch((function (errorP1) {
-            $scope.isProjectSelected = false;
-            $scope.queriesList = null;
-        }))
+            .catch((function (errorP1) {
+                $scope.isProjectSelected = false;
+                $scope.queriesList = null;
+            }));
 
         $scope.dashboard.selectedQuery = null;
     }
@@ -135,6 +137,12 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
         });
     }
 
+    function checkRefreshRate() {
+        var tempValue = localStorageService.get("RefreshRate");
+        if (!(tempValue === null)) {
+            $scope.dashboard.refreshRate = tempValue;
+        }
+    }
 
     function checkForColumnLimits() {
         angular.forEach($scope.dashboard.columnList, (function (column) {
@@ -153,13 +161,14 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.dashboard.testList = res;
             checkShowStatus($scope.dashboard.testList.Members);
             checkForColumnLimits();
+            checkRefreshRate();
             $modalInstance.dismiss();
             $scope.loadingQuery = false;
             $scope.dashboard.itemsLoaded = true;
         })
-        .catch(function () {
-            $scope.loadingQuery = false;
-            $scope.dashboard.itemsLoaded = false;
-        })
+            .catch(function () {
+                $scope.loadingQuery = false;
+                $scope.dashboard.itemsLoaded = false;
+            });
     }
 }]);

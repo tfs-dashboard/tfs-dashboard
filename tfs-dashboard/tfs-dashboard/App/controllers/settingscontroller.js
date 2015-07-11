@@ -1,4 +1,4 @@
-﻿var app = angular.module('tfsApp')
+﻿var app = angular.module('tfsApp');
 
 app.controller("SettingsController", function ($scope, $modal, $timeout) {
 

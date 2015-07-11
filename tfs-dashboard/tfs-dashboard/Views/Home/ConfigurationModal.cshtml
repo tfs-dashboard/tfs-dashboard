@@ -5,25 +5,39 @@
     </div>
 
     <div class="modal-body">
+        <row>
+            <div class="col-md-12">
+                <p>Minutes between data refresh:</p>
+                <div>
+                    <input ng-change="submitRefreshRate()" tooltip-trigger ="mouseenter" tooltip-placement="top" tooltip="{{dashboard.refreshRate}}" type="range" min="0" max="60" step="1" ng-model="dashboard.refreshRate" style="width: 400px;" />
+                </div>
+            </div>
+        </row>
 
-        <span> Limits:</span><br />
-        <div ng-repeat="column in dashboard.columnList">
-            {{column.Name}} <input type="range" min="0" max="10" step="1" ng-model="column.Value" style="width: 200px;" ng-change="submitLimit(column)"/>
-            <span>{{column.Value}}</span>
-        </div>
-        <span> Members:</span>
-        <div style="color:azure" ng-repeat="member in dashboard.testList.Members track by $index">
-            <row>
-                <div class="col-md-6">
-                    {{member.Name}}
+        <br/><br/><br/><br/>
+
+        <row>
+            <div class="col-md-6">
+                <span> Limits:</span><br/>
+                <div ng-repeat="column in dashboard.columnList">
+                    {{column.Name}} <input tooltip-trigger="mouseenter" tooltip-placement="top" tooltip="{{column.Value}}" type="range" min="0" max="10" step="1" ng-model="column.Value" style="width: 200px;" ng-change="submitLimit(column)"/>
                 </div>
-                <div class="col-md-6">
-                    <input type="checkbox" ng-model="member.Show" ng-change="submitMemberShow(member, dashboard.selectedQuery)" />
+            </div>
+            <div class="col-md-6">
+                <span> Members:</span>
+                <div style="color: azure" ng-repeat="member in dashboard.testList.Members track by $index">
+                    <row>
+                        <div class="col-md-10">
+                            {{member.Name}}
+                        </div>
+                        <div class="col-md-2">
+                            <input type="checkbox" ng-model="member.Show" ng-change="submitMemberShow(member, dashboard.selectedQuery)"/>
+                        </div>
+                    </row>
                 </div>
-            </row>
-        </div>
+            </div>
+        </row>
     </div>
-
     <div class="modal-footer">
         <button class="btn btn-danger modal-btn" ng-click="cancel()">Close</button>
     </div>

@@ -1,6 +1,6 @@
 ﻿var app = angular.module('tfsApp');
 
-app.controller("HomeController", [
+app.controller('HomeController', [
     '$scope', 'dashboard', '$interval', 'tfsService', 'localStorageService', function ($scope, dashboard, $interval, tfsService, localStorageService) {
         $scope.dashboard = dashboard;
         $scope.dashboard.itemsLoaded = false;
@@ -50,9 +50,7 @@ app.controller("HomeController", [
         };
 
 
-        $scope.Number = 0;
         function reloadDashboard(selectedQuery, selectedProject) {
-            $scope.Number++;
             var gotWorkItemsPromise = tfsService.GetWorkItems(selectedQuery, selectedProject.Name);
             gotWorkItemsPromise.then(function (res) {
                 $scope.dashboard.testList = res;
@@ -70,16 +68,27 @@ app.controller("HomeController", [
             dashReload = setInterval(function () { reloadDashboard($scope.dashboard.selectedQuery, $scope.dashboard.selectedProject) }, tick);
         };
 
-
-        $scope.$watch("dashboard.itemsLoaded", function () {
+        $scope.$watch("dashboard.refreshRate", function () {
             if ($scope.dashboard.itemsLoaded === true) {
-                startReload(60000);
+                clearInterval(dashReload);
+                if (!($scope.dashboard.refreshRate === 0))
+                    startReload($scope.dashboard.refreshRate * 60000);
             } else {
                 clearInterval(dashReload);
             }
         });
 
-        
+        $scope.$watch("dashboard.itemsLoaded", function () {
+            if ($scope.dashboard.itemsLoaded === true) {
+                clearInterval(dashReload);
+                if (!($scope.dashboard.refreshRate === 0))
+                    startReload($scope.dashboard.refreshRate * 60000);
+            } else {
+                clearInterval(dashReload);
+            }
+        });
+
+
 
         $scope.ifWorkItemOverdue = function (workItem) {
             workItem.hoursMsg = "hour";
@@ -91,7 +100,7 @@ app.controller("HomeController", [
                 return true;
             } else {
                 return false;
-            };
+            }
         };
 
         $scope.checkIfTooLong = function (item, length) {
@@ -99,7 +108,7 @@ app.controller("HomeController", [
                 return true;
             } else {
                 return false;
-            };
+            }
         };
 
         $scope.ifOverLimit = function (member, column) {

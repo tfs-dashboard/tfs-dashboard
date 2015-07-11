@@ -30,29 +30,29 @@ namespace tfs_dashboard.Models
                 }
                 if (field.Name == "Assigned To")
                 {
-                    this.AssignedTo = (string)field.Value;
+                    AssignedTo = (string)field.Value;
                 }
                 if (field.Name == "Original Estimate")
                 {
 
                     double val = field.Value == null ? 0 : (double)field.Value;
-                    this.OriginalEstimate = (int)val;
+                    OriginalEstimate = (int)val;
                 }
                 if (field.Name == "Completed Work")
                 {
                     double val = field.Value == null ? 0 : (double)field.Value;
-                    this.CompletedWork = (int)val;
+                    CompletedWork = (int)val;
                 }
                 if (field.Name == "Remaining Work")
                 {
                     double val = field.Value == null ? 0 : (double)field.Value;
-                    this.RemainingWork = (int)val;
+                    RemainingWork = (int)val;
                 }
             }
-            this.Status = workItem.State;
-            this.Title = workItem.Title;
-            this.Id = workItem.Id;
-            this.Type = "Task";
+            Status = workItem.State;
+            Title = workItem.Title;
+            Id = workItem.Id;
+            Type = "Task";
         }
     }
 }

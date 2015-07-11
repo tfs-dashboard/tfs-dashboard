@@ -12,7 +12,7 @@ namespace tfs_dashboard.Repositories
 {
     public static class TeamCollectionRepository
     {
-        private static IEnumerable<Guid> _teamObjectTypes = new[] {CatalogResourceTypes.ProjectCollection};
+        private static readonly IEnumerable<Guid> _teamObjectTypes = new[] {CatalogResourceTypes.ProjectCollection};
 
         public static IEnumerable<TeamCollection> Get(TfsConfigurationServer teamServer)
         {

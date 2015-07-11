@@ -43,7 +43,7 @@ namespace tfs_dashboard.Controllers
             }
 
 
-            TeamCollection selectedCollection = collection.Where(m => m.Name == collectionName).First();
+            TeamCollection selectedCollection = collection.First(m => m.Name == collectionName);
             selectedCollection = TeamProjectRepository.Get(selectedCollection);
             var projectList = selectedCollection.Projects;
             GetWorkItemStore();
@@ -76,7 +76,6 @@ namespace tfs_dashboard.Controllers
             IDictionary project = new Dictionary<string, string>();
             project.Add("project", projectName);
             WorkItemCollection result = workItemStore.Query(def.QueryText, project);
-
             TeamItemStore store = new TeamItemStore(result, workItemStore);
             return Json(store);
         }
@@ -94,11 +93,7 @@ namespace tfs_dashboard.Controllers
 
             IEnumerable queries = GetAllContainedQueriesList(queryFolder);
 
-            foreach (QueryItem item in queries)
-            {
-                if (item.Name == name) return item;
-            }
-            return null;
+            return queries.Cast<QueryItem>().FirstOrDefault(item => item.Name == name);
         }
 
         private void GetWorkItemStore()
@@ -120,17 +115,14 @@ namespace tfs_dashboard.Controllers
         private IEnumerable GetAllContainedQueriesList(QueryFolder queryFolder)
         {
 
-            List<QueryItem> queryItems = new List<QueryItem>();
-            foreach (QueryItem item in queryFolder)
+            var queryItems = new List<QueryItem>();
+            foreach (var item in queryFolder)
             {
                 var type = item.GetType();
                 if (type.Name == "QueryFolder")
                 {
                     IEnumerable subQueryItems = GetAllContainedQueriesList(item as QueryFolder);
-                    foreach (QueryItem subItem in subQueryItems)
-                    {
-                        queryItems.Add(subItem);
-                    }
+                    queryItems.AddRange(subQueryItems.Cast<QueryItem>());
                 }
                 else
                 {
@@ -141,14 +133,9 @@ namespace tfs_dashboard.Controllers
         }
 
 
-        private IEnumerable GetQueriesNames(IEnumerable queryFolder)
+        private static IEnumerable GetQueriesNames(IEnumerable queryFolder)
         {
-            List<string> names = new List<string>();
-            foreach (QueryItem item in queryFolder)
-            {
-                names.Add(String.Format(item.Name));
-            }
-            return names;
+            return (from QueryItem item in queryFolder select String.Format(item.Name)).ToList();
         }
     }
 }

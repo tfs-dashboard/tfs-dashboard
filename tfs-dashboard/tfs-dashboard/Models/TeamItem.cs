@@ -32,57 +32,57 @@ namespace tfs_dashboard.Models
                 }
                 if (field.Name == "Verification Status")
                 {
-                    this.VerificationStatus = (string)field.Value;
+                    VerificationStatus = (string)field.Value;
                 }
                 if (field.Name == "Blocked")
                 {
-                    this.Blocked = (string)field.Value == "Yes" ? true : false;
+                    Blocked = (string)field.Value == "Yes" ? true : false;
                 }
                 if (field.Name == "Assigned To")
                 {
-                    this.AssignedTo = (string)field.Value;
+                    AssignedTo = (string)field.Value;
                 }
             }
             switch (workItem.State)
             {
                 case "Proposed":
-                    this.Status = "Backlog";
+                    Status = "Backlog";
                     break;
                 case "Active":
-                    this.Status = "In Work";
+                    Status = "In Work";
                     break;
                 case "Resolved":
-                    if (this.VerificationStatus == "Not Executed")
-                        this.Status = "Waiting For Test";
-                    else if (this.VerificationStatus == "Resolved")
-                        this.Status = "In Test";
-                    else if (this.VerificationStatus == "Passed")
-                        this.Status = "Waiting For Release";
+                    if (VerificationStatus == "Not Executed")
+                        Status = "Waiting For Test";
+                    else if (VerificationStatus == "Resolved")
+                        Status = "In Test";
+                    else if (VerificationStatus == "Passed")
+                        Status = "Waiting For Release";
                     break;
             }
 
             TaskList = new List<Task>();
-            this.OverallCompletedTime = 0;
-            this.OverallEstimatedTime = 0;
-            this.OverallRemainingTime = 0;
+            OverallCompletedTime = 0;
+            OverallEstimatedTime = 0;
+            OverallRemainingTime = 0;
 
 
-            //foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
-            //{
-            //    WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);
-            //    if (item.Type.Name == "Task")
-            //    {
-            //        Task task = new Task(item);
-            //        this.TaskList.Add(task);
-            //        this.OverallCompletedTime += task.CompletedWork;
-            //        this.OverallEstimatedTime += task.OriginalEstimate;
-            //        this.OverallRemainingTime += task.RemainingWork;
-            //    }
-            //}
+            foreach (WorkItemLink workItemLink in workItem.WorkItemLinks)
+            {
+                WorkItem item = workItemStore.GetWorkItem(workItemLink.TargetId);
+                if (item.Type.Name == "Task")
+                {
+                    Task task = new Task(item);
+                    TaskList.Add(task);
+                    OverallCompletedTime += task.CompletedWork;
+                    OverallEstimatedTime += task.OriginalEstimate;
+                    OverallRemainingTime += task.RemainingWork;
+                }
+            }
 
-            this.Title = workItem.Title;
-            this.State = workItem.State;
-            this.Id = workItem.Id;
+            Title = workItem.Title;
+            State = workItem.State;
+            Id = workItem.Id;
         }
     }
 }
