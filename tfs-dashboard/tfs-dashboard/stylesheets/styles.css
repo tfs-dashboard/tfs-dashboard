@@ -5721,7 +5721,8 @@ button.close {
   text-align: center; }
 
 .warning-bg {
-  background-color: yellow; }
+  background-color: #c8c804;
+  border: 2px inset orange; }
 
 .popover {
   color: white;

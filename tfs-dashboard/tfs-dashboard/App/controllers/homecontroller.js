@@ -1,16 +1,14 @@
 ﻿var app = angular.module('tfsApp');
 
 app.controller("HomeController", [
-    '$scope', 'dashboard', '$interval', function ($scope, dashboard, $interval) {
+    '$scope', 'dashboard', '$interval', 'tfsService', 'localStorageService', function ($scope, dashboard, $interval, tfsService, localStorageService) {
         $scope.dashboard = dashboard;
         $scope.dashboard.itemsLoaded = false;
         $scope.details = {
             templateUrl: "home/taskpopover"
         };
 
-
-
-        $scope.dashboard.columnList = [ { Name: "Backlog", Value: 4 },
+        $scope.dashboard.columnList = [{ Name: "Backlog", Value: 4 },
                                         { Name: "In Work", Value: 2 },
                                         { Name: "Waiting For Test", Value: 0 },
                                         { Name: "For Test", Value: 1 },
@@ -28,10 +26,60 @@ app.controller("HomeController", [
                 case "ChangeRequest":
                     workItem.color = "blue";
                     break;
-            }
+            };
         };
 
 
+        function checkShowStatus(memberList) {
+            angular.forEach(memberList, function (member) {
+                var tempValue = localStorageService.get(member.Name + " in " + $scope.dashboard.selectedQuery);
+                if (!(tempValue === null)) {
+                    member.Show = tempValue;
+                };
+            });
+        };
+
+
+        function checkForColumnLimits() {
+            angular.forEach($scope.dashboard.columnList, (function (column) {
+                var tempValue = localStorageService.get(column.Name + " in " + $scope.dashboard.selectedQuery);
+                if (!(tempValue === null)) {
+                    column.Value = tempValue;
+                };
+            }));
+        };
+
+
+        $scope.Number = 0;
+        function reloadDashboard(selectedQuery, selectedProject) {
+            $scope.Number++;
+            var gotWorkItemsPromise = tfsService.GetWorkItems(selectedQuery, selectedProject.Name);
+            gotWorkItemsPromise.then(function (res) {
+                $scope.dashboard.testList = res;
+                checkShowStatus($scope.dashboard.testList.Members);
+                checkForColumnLimits();
+                $scope.dashboard.itemsLoaded = true;
+            })
+                .catch(function () {
+                    $scope.dashboard.itemsLoaded = false;
+                });
+        };
+
+        var dashReload;
+        function startReload(tick) {
+            dashReload = setInterval(function () { reloadDashboard($scope.dashboard.selectedQuery, $scope.dashboard.selectedProject) }, tick);
+        };
+
+
+        $scope.$watch("dashboard.itemsLoaded", function () {
+            if ($scope.dashboard.itemsLoaded === true) {
+                startReload(60000);
+            } else {
+                clearInterval(dashReload);
+            }
+        });
+
+        
 
         $scope.ifWorkItemOverdue = function (workItem) {
             workItem.hoursMsg = "hour";
@@ -44,7 +92,7 @@ app.controller("HomeController", [
             } else {
                 return false;
             };
-        }
+        };
 
         $scope.checkIfTooLong = function (item, length) {
             if (item.Title.length > length) {
@@ -55,29 +103,10 @@ app.controller("HomeController", [
         };
 
         $scope.ifOverLimit = function (member, column) {
-            if (column.Value === 0)
-                return false;
-            if (member[column.Name.replace(/\s+/g, '')] > column.Value) {
+            if (member[column.Name.replace(/\s+/g, '')] > column.Value && !(column.Value == 0)) {
                 return true;
-            }
+            };
             return false;
-        }
-
-        $scope.startRefresh = function () {
-            $scope.stop();
-            var promise = $interval(function () {
-
-            }, $scope.dashboard.minutesBetweenRefresh);
         };
-
-        $scope.checkPos = function (e) {
-            var left = e.currentTarget.offsetParent.offsetLeft;
-            if (left >= 1920 - 600) {
-                $scope.PopoverPosition = "left";
-            }
-            if (left <= 600) {
-                $scope.PopoverPosition = "right";
-            }
-        }
     }
 ]);
