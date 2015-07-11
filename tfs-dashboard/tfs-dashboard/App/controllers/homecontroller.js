@@ -112,7 +112,7 @@ app.controller('HomeController', [
         };
 
         $scope.ifOverLimit = function (member, column) {
-            if (member[column.Name.replace(/\s+/g, '')] > column.Value && !(column.Value == 0)) {
+            if (member[column.Name.replace(/\s+/g, '')] > column.Value && !(column.Value === 0)) {
                 return true;
             };
             return false;

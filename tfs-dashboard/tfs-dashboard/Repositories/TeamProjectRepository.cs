@@ -1,8 +1,5 @@
-﻿using Microsoft.TeamFoundation.Framework.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System;
+using Microsoft.TeamFoundation.Framework.Common;
 using tfs_dashboard.Models;
 
 namespace tfs_dashboard.Repositories

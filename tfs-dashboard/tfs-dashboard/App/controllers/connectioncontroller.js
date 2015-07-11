@@ -64,7 +64,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
     }
     //initial connection with url
     $scope.connect = function (conUrl) {
-        validUrlPromise = tfsService.GetCollectionInfo(conUrl);
+        var validUrlPromise = tfsService.GetCollectionInfo(conUrl);
         submit('connectionUrl', conUrl);
         $scope.collectionList = null;
         validUrlPromise.then(function (res) {

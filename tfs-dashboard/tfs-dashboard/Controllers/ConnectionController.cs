@@ -1,12 +1,9 @@
-﻿using Microsoft.TeamFoundation.Client;
-using Microsoft.TeamFoundation.WorkItemTracking.Client;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Microsoft.TeamFoundation.WorkItemTracking.Client;
 using tfs_dashboard.Models;
 using tfs_dashboard.Repositories;
 
@@ -58,10 +55,9 @@ namespace tfs_dashboard.Controllers
 
             QueryHierarchy query = project.QueryHierarchy;
             var queryFolder = query as QueryFolder;
-            QueryItem queryItem = queryFolder["Shared Queries"];
+            var queryItem = queryFolder["Shared Queries"];
             queryFolder = queryItem as QueryFolder;
 
-            JsonResult x = Json(GetQueriesNames(GetAllContainedQueriesList(queryFolder)));
             IEnumerable<string> names = (IEnumerable<string>)GetQueriesNames(GetAllContainedQueriesList(queryFolder));
 
             return Json(names, JsonRequestBehavior.AllowGet);

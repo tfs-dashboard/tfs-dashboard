@@ -8,21 +8,21 @@ app.service("tfsService", function ($http) {
     }
 
     var getProjectInfo = function (selectedCollection) {
-        return $http.post('/connection/getprojectinfo', { collectionName: selectedCollection }).then(function (result) {
+        return $http.post('/connection/getprojectinfo', { collectionName: selectedCollection }).then(function(result) {
             return result.data;
-        })
+        });
     }
 
     var getSharedQueries = function (selectedProject) {
-        return $http.post('/connection/getsharedquerieslist', { projectName: selectedProject }).then(function (result) {
+        return $http.post('/connection/getsharedquerieslist', { projectName: selectedProject }).then(function(result) {
             return result.data;
-        })
+        });
     }
 
     var getWorkItems = function (selectedQuery, selectedProject) {
-        return $http.post('/connection/getworkitems', { queryName: selectedQuery, projectName: selectedProject }).then(function (result) {
+        return $http.post('/connection/getworkitems', { queryName: selectedQuery, projectName: selectedProject }).then(function(result) {
             return result.data;
-        })
+        });
     }
 
     tfsServiceFactory.GetCollectionInfo = getCollectionInfo;
