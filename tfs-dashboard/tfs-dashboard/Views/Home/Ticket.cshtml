@@ -6,7 +6,7 @@
     <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float: right"/>
 
     <p class="no-margin-text">{{workItem.Title | limitTo: 35}}..</p>
-
+    
     <span class="no-margin-text">E:</span>
     <span class="no-margin-text-bold">{{workItem.OverallEstimatedTime}}</span>
     <span class="no-margin-text">/ C:</span>
@@ -20,14 +20,3 @@
         <p>{{workItem.overdueTime}} {{workItem.hoursMsg}} overdue</p>
     </div>
 </div>
-
-<script type="text/javascript">
-    jQuery(document).ready(function ($) {
-        $('#asz').popover({
-            html: true,
-            trigger: 'manual'
-        }).click(function () {
-            $(this).popover('show');
-        });
-    });
-</script>

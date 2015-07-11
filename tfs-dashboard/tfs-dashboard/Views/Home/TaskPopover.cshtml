@@ -1,8 +1,9 @@
 ﻿<div>
+    <img class="image-center" src="~/Content/appbar.arrow.up.png" />
     <p class="details-title">{{workItem.Type}} {{workItem.Id}}</p>
     {{workItem.Title}}
 
-    <br /><br />
+    <br/><br/>
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-6">
@@ -14,16 +15,16 @@
         </div>
 
         <div class="col-md-2 text-left task-desc" style="padding-left: 28px;">Id</div>
-        <div class="col-md-4 text-left task-desc" style="padding-left:10px">Task</div>
-        <div class="col-md-2 text-left task-desc" style="padding-left:10px">Estimated</div>
-        <div class="col-md-2 text-left task-desc" style="padding-left:10px">Completed</div>
-        <div class="col-md-2 text-left task-desc" style="padding-left:10px">Remaining</div>
+        <div class="col-md-4 text-left task-desc" style="padding-left: 10px">Task</div>
+        <div class="col-md-2 text-left task-desc" style="padding-left: 10px">Estimated</div>
+        <div class="col-md-2 text-left task-desc" style="padding-left: 10px">Completed</div>
+        <div class="col-md-2 text-left task-desc" style="padding-left: 10px">Remaining</div>
 
         <div ng-repeat="task in workItem.TaskList">
             <div class="row text-left task-desc task-row">
                 <div class="col-md-2 text-left task-desc" style="padding-right: 0; padding-left: 0;">
                     <div class="col-md-1" style="padding: 0;">
-                        <img ng-show="task.Blocked" src="~/Content/appbar-cancel-small.png" />
+                        <img ng-show="task.Blocked" src="~/Content/appbar-cancel-small.png"/>
                     </div>
                     <div class="col-md-9 col-md-offset-2" style="padding: 0;">
                         {{task.Id}}
@@ -33,13 +34,13 @@
                     <p ng-hide="checkIfTooLong(task,13)">{{task.Title | limitTo:13}}</p>
                     <p tooltip-placement="bottom" tooltip={{task.Title}} ng-hide=!checkIfTooLong(task,13)>{{task.Title | limitTo:13}}..</p>
                 </div>
-                <div class="col-md-2" style="padding:0">
+                <div class="col-md-2" style="padding: 0">
                     {{task.OriginalEstimate}}
                 </div>
-                <div class="col-md-2" style="padding:0">
+                <div class="col-md-2" style="padding: 0">
                     {{task.CompletedWork}}
                 </div>
-                <div class="col-md-2" style="padding:0">
+                <div class="col-md-2" style="padding: 0">
                     {{task.RemainingWork}}
                 </div>
             </div>
