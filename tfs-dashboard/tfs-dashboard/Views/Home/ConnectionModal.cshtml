@@ -15,7 +15,7 @@
         </row>
         <row>
             <div class="col-md-3">
-                <button class="connect-btn btn btn-default" ng-click="connect(conUrl)">Connect</button>
+                <button class="modal-ok-btn btn btn-default" ng-disabled="loadingQuery" ng-click="connect(conUrl)">Connect</button>
             </div>
         </row>
         <br /><br /><br />
@@ -37,7 +37,7 @@
         </row>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-danger modal-btn" ng-disabled="loadingQuery" ng-click="getWorkItems(dashboard.selectedQuery, dashboard.selectedProject)">Save</button>
+        <button class="btn modal-ok-btn modal-btn" ng-disabled="loadingQuery" ng-click="getWorkItems(dashboard.selectedQuery, dashboard.selectedProject)">Save</button>
         <button class="btn btn-warning modal-btn" ng-disabled="loadingQuery" ng-click="cancel()">Cancel</button>
     </div>
 </div>

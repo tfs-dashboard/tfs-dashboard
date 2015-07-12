@@ -60,6 +60,7 @@ app.controller('HomeController', [
             })
                 .catch(function () {
                     $scope.dashboard.itemsLoaded = false;
+                    $scope.dashboard.testList = undefined;
                 });
         };
 
