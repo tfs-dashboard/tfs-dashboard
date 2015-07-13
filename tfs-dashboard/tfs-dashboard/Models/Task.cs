@@ -45,6 +45,7 @@ namespace tfs_dashboard.Models
                     RemainingWork = (int)val;
                 }
             }
+            
             Status = workItem.State;
             Title = workItem.Title;
             Id = workItem.Id;

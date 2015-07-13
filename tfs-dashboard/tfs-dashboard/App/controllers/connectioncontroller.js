@@ -17,6 +17,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
 
 
     //conn on startup
+    // big refactor needed
 
     $scope.init = function () {
         var defer = $q.defer();
@@ -28,16 +29,16 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
                     collectionPromise.then(function (res) {
                         $scope.collectionList = res.data;
                         $scope.isUrlValid = true;
-                        $scope.conUrl = localStorageService.get("connectionUrl");
+                        $scope.dashboard.conUrl = localStorageService.get("connectionUrl");
                         var tempCollection = localStorageService.get("selectedCollection");
-                        if (!(tempCollection === null)) {
+                        if (!(tempCollection === null || tempCollection === undefined)) {
                             var projectPromise = tfsService.GetProjectInfo(tempCollection.Name);
                             projectPromise.then(function (res) {
                                 $scope.projectList = res;
                                 $scope.isCollectionSelected = true;
                                 $scope.dashboard.selectedCollection = tempCollection;
                                 var tempProject = localStorageService.get("selectedProject");
-                                if (!(tempProject === null)) {
+                                if (!(tempProject === undefined || tempProject === null)) {
                                     var queryPromise = tfsService.GetSharedQueries(tempProject.Name);
                                     queryPromise.then(function (res) {
                                         $scope.dashboard.selectedProject = tempProject;
@@ -70,7 +71,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
         validUrlPromise.then(function (res) {
             $scope.collectionList = res.data;
             $scope.isUrlValid = true;
-            $scope.conUrl = conUrl;
+            $scope.dashboard.conUrl = conUrl;
             $scope.isProjectSelected = false;
             $scope.isCollectionSelected = false;
         },

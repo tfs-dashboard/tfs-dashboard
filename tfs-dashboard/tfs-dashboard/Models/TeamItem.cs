@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
 
 namespace tfs_dashboard.Models
@@ -18,6 +19,8 @@ namespace tfs_dashboard.Models
         public int OverallCompletedTime { get; private set; }
         public int OverallRemainingTime { get; private set; }
         public string Type { get; protected set; }
+        public int TaskAmount { get; private set; }
+        public int ClosedTaskAmount { get; private set; }
 
         public TeamItem(WorkItem workItem, WorkItemStore workItemStore)
         {
@@ -33,7 +36,7 @@ namespace tfs_dashboard.Models
                 }
                 if (field.Name == "Blocked")
                 {
-                    Blocked = (string)field.Value == "Yes" ? true : false;
+                    Blocked = (string)field.Value == "Yes";
                 }
                 if (field.Name == "Assigned To")
                 {
@@ -76,6 +79,8 @@ namespace tfs_dashboard.Models
                     OverallRemainingTime += task.RemainingWork;
                 }
             }
+            ClosedTaskAmount = TaskList.Count(m => m.Status == "Closed");
+            TaskAmount = TaskList.Count();
 
             Title = workItem.Title;
             State = workItem.State;

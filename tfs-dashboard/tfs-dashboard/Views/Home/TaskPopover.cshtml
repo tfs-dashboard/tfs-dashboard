@@ -3,7 +3,7 @@
     <p class="details-title">{{workItem.Type}} {{workItem.Id}}</p>
     {{workItem.Title}}
 
-    <br/><br/>
+    <br /><br />
     <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-6">
@@ -15,32 +15,36 @@
         </div>
 
         <div class="col-md-2 text-left task-desc" style="padding-left: 28px;">Id</div>
-        <div class="col-md-4 text-left task-desc" style="padding-left: 10px">Task</div>
-        <div class="col-md-2 text-left task-desc" style="padding-left: 10px">Estimated</div>
-        <div class="col-md-2 text-left task-desc" style="padding-left: 10px">Completed</div>
-        <div class="col-md-2 text-left task-desc" style="padding-left: 10px">Remaining</div>
+        <div class="col-md-3 text-left task-desc" style="padding-left: 5px;">Task</div>
+        <div class="col-md-3 text-left task-desc" style="padding-left: 15px;">Assigned To</div>
+        <div class="col-md-1 text-left task-desc" style="padding-left: 10px;">Est</div>
+        <div class="col-md-1 text-left task-desc" style="padding-left: 10px;">Co</div>
+        <div class="col-md-1 text-left task-desc" style="padding-left: 10px;">Rem</div>
 
         <div ng-repeat="task in workItem.TaskList">
             <div class="row text-left task-desc task-row">
                 <div class="col-md-2 text-left task-desc" style="padding-right: 0; padding-left: 0;">
                     <div class="col-md-1" style="padding: 0;">
-                        <img ng-show="task.Blocked" src="~/Content/appbar-cancel-small.png"/>
+                        <img ng-show="task.Blocked" src="~/Content/appbar-cancel-small.png" />
                     </div>
                     <div class="col-md-9 col-md-offset-2" style="padding: 0;">
-                        {{task.Id}}
+                        <a href={{task.Url}} class="customText" ng-click="getItemUrl(task)">{{task.Id}}</a>
                     </div>
                 </div>
-                <div class="col-md-4 text-left task-desc">
+                <div class="col-md-3" style="padding: 0;">
                     <p ng-hide="checkIfTooLong(task,13)">{{task.Title | limitTo:13}}</p>
                     <p tooltip-placement="bottom" tooltip={{task.Title}} ng-hide=!checkIfTooLong(task,13)>{{task.Title | limitTo:13}}..</p>
                 </div>
-                <div class="col-md-2" style="padding: 0">
+                <div class="col-md-3 text-left task-desc" style="text-align: left;">
+                    <p tooltip-placement="bottom" tooltip={{task.AssignedTo}}>{{task.AssignedTo}}</p>
+                </div>
+                <div class="col-md-1" style="padding: 0">
                     {{task.OriginalEstimate}}
                 </div>
-                <div class="col-md-2" style="padding: 0">
+                <div class="col-md-1" style="padding: 0">
                     {{task.CompletedWork}}
                 </div>
-                <div class="col-md-2" style="padding: 0">
+                <div class="col-md-1" style="padding: 0">
                     {{task.RemainingWork}}
                 </div>
             </div>

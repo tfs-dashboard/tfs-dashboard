@@ -79,6 +79,11 @@ app.controller('HomeController', [
             }
         });
 
+        $scope.getItemUrl = function(item) {
+            item.Url = $scope.dashboard.conUrl + "/" + $scope.dashboard.selectedCollection.Name + "/" + $scope.dashboard.selectedProject.Name + "/_workitems#_a=edit&id=" + item.Id;
+            
+        }
+
         $scope.$watch("dashboard.itemsLoaded", function () {
             if ($scope.dashboard.itemsLoaded === true) {
                 clearInterval(dashReload);

@@ -1,12 +1,19 @@
 ﻿<div tabindex="0" popover-trigger="focus" popover-placement="bottom" rel="popover" data-color="{{workItem.color}}" popover-template="details.templateUrl" style="padding: 3px;" ng-click="color(workItem)"
      ng-class="{'change-request': workItem.Type == 'ChangeRequest', 'bug': workItem.Type == 'Bug', 'requirement': workItem.Type == 'Requirement'}" class="col-md-1">
+    <row>
+        <div class="col-md-6" style="padding: 0">
+            <a class="customText" href={{workItem.Url}} ng-click="getItemUrl(workItem)" style="margin: 0; padding: 0;">{{workItem.Id}}:</a>
+        </div>
+        <div class="col-md-6" style="padding-right: 5px;">
+            <p style="text-align: right; margin: 0">{{workItem.ClosedTaskAmount}}/{{workItem.TaskAmount}}</p>
+        </div>
+    </row>
 
-    <p style="margin: 0; padding: 0;">{{workItem.Id}}:</p>
 
-    <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float: right"/>
+    <img ng-show="workItem.Blocked" src="~/Content/appbar.cancel.png" style="float: right" />
 
-    <p class="no-margin-text">{{workItem.Title | limitTo: 35}}..</p>
-    
+    <p ng-show="!checkIfTooLong(workItem, 35)" class="no-margin-text">{{workItem.Title | limitTo: 35}}</p>
+    <p ng-show="checkIfTooLong(workItem, 35)" class="no-margin-text">{{workItem.Title | limitTo: 35}}..</p>
     <span class="no-margin-text">E:</span>
     <span class="no-margin-text-bold">{{workItem.OverallEstimatedTime}}</span>
     <span class="no-margin-text">/ C:</span>
