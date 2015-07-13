@@ -78,6 +78,7 @@ app.controller("ConnectionController", ['$scope', 'tfsService', 'localStorageSer
             $scope.collectionList = null;
             $scope.isUrlValid = false;
             $scope.isCollectionSelected = false;
+            $scope.isProjectSelected = false;
         }));
 
         $scope.dashboard.selectedCollection = null;
