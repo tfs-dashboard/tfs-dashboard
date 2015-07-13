@@ -10,7 +10,7 @@
             </div>
 
             <div class="col-md-9">
-                <input class="input-url" type="text" ng-model="dashboard.conUrl" />
+                <input ng-disabled="loadingQuery" class="input-url" type="text" ng-model="dashboard.conUrl" />
             </div>
         </row>
         <row>
@@ -21,19 +21,19 @@
         <br /><br /><br />
         <span style="margin:20px">Collection:</span>
         <row class="col-md-12">
-            <select class="connection-dropdown" ng-model="dashboard.selectedCollection" ng-disabled="!isUrlValid" ng-change="selectCollection(dashboard.selectedCollection)"
+            <select class="connection-dropdown" ng-model="dashboard.selectedCollection" ng-disabled="!isUrlValid || loadingQuery" ng-change="selectCollection(dashboard.selectedCollection)"
                     ng-options="collection.Name for collection in collectionList track by collection.Name" value="collection.Name"></select>
         </row>
         <br /><br /><br />
         <span style="margin:20px">Project:</span>
         <row class="col-md-12">
-            <select class="connection-dropdown" ng-model="dashboard.selectedProject" ng-disabled="!isCollectionSelected" value="project.Name" ng-change="selectProject(dashboard.selectedProject)"
+            <select class="connection-dropdown" ng-model="dashboard.selectedProject" ng-disabled="!isCollectionSelected || loadingQuery" value="project.Name" ng-change="selectProject(dashboard.selectedProject)"
                     ng-options="project.Name for project in projectList track by project.Name"></select>
         </row>
         <br /><br /><br />
         <span style="margin:20px">Query:</span>
         <row class="col-md-12">
-            <select class="connection-dropdown" ng-model="dashboard.selectedQuery" ng-disabled="!isProjectSelected" ng-options="query for query in queriesList track by query" value="query.Name"></select>
+            <select class="connection-dropdown" ng-model="dashboard.selectedQuery" ng-disabled="!isProjectSelected || loadingQuery" ng-options="query for query in queriesList track by query" value="query.Name"></select>
         </row>
     </div>
     <div class="modal-footer">
