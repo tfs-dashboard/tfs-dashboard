@@ -150,6 +150,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConnectionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -157,6 +158,8 @@
     </Compile>
     <Compile Include="Models\Bug.cs" />
     <Compile Include="Models\ChangeRequest.cs" />
+    <Compile Include="Models\Errors\Error.cs" />
+    <Compile Include="Models\Errors\InvalidInputException.cs" />
     <Compile Include="Models\Member.cs" />
     <Compile Include="Models\Requirement.cs" />
     <Compile Include="Models\Task.cs" />
@@ -293,7 +296,6 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js.map">
       <DependentUpon>ui-bootstrap-tpls.min.js</DependentUpon>
     </Content>
-    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="javascripts\bootstrap-sprockets.js" />
     <Content Include="javascripts\bootstrap.js" />

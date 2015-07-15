@@ -2,28 +2,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
 using tfs_dashboard.Models;
+using tfs_dashboard.Models.Errors;
 using tfs_dashboard.Repositories;
 
 namespace tfs_dashboard.Controllers
 {
-    public class ConnectionController : Controller
+    public class ConnectionController : BaseController
     {
         public JsonResult GetCollectionInfo(string url)
         {
             try
             {
+                if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
+                    throw new InvalidInputException(string.Format("Provided URL \"{0}\" is invalid", url));
                 Session["TfsUrl"] = url;
                 var teamServer = TeamCollectionRepository.GetTeamConfigurationServer(new Uri(url));
                 var tfsCol = TeamCollectionRepository.Get(teamServer);
                 Session["TeamCollection"] = tfsCol;
                 return Json(tfsCol, JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch (InvalidInputException ex)
             {
-                throw new Exception();
+                return ReturnError(ex);
+            }
+            catch (Exception ex)
+            {
+                LogError(ex);
+                return ReturnError(ex);
             }
         }
 
