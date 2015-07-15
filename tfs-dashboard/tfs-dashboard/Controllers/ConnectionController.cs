@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
 using tfs_dashboard.Models;
@@ -20,10 +19,11 @@ namespace tfs_dashboard.Controllers
                 if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
                     throw new InvalidInputException(string.Format("Provided URL \"{0}\" is invalid", url));
                 Session["TfsUrl"] = url;
+
                 var teamServer = TeamCollectionRepository.GetTeamConfigurationServer(new Uri(url));
-                var tfsCol = TeamCollectionRepository.Get(teamServer);
-                Session["TeamCollection"] = tfsCol;
-                return Json(tfsCol, JsonRequestBehavior.AllowGet);
+                var tfsCollections = TeamCollectionRepository.Get(teamServer);
+                Session["TeamCollection"] = tfsCollections;
+                return Json(tfsCollections, JsonRequestBehavior.AllowGet);
             }
             catch (InvalidInputException ex)
             {
@@ -40,18 +40,14 @@ namespace tfs_dashboard.Controllers
         {
 
             Session["SelectedCollection"] = collectionName;
-            var tfsCol = Session["TeamCollection"];
+            var tfsCollections = (IEnumerable<TeamCollection>) Session["TeamCollection"];
 
-            IEnumerable<TeamCollection> collection = (IEnumerable<TeamCollection>)tfsCol;
-            if (tfsCol == null)
-            {
-                throw new Exception();
-            }
+            if (tfsCollections == null)
+                throw new Exception("Couldn't load the list of TFS collections from session object.");
 
+            var selectedCollection = tfsCollections.First(m => m.Name == collectionName);
+            var projectList = TeamProjectRepository.Get(selectedCollection).Projects;
 
-            TeamCollection selectedCollection = collection.First(m => m.Name == collectionName);
-            selectedCollection = TeamProjectRepository.Get(selectedCollection);
-            var projectList = selectedCollection.Projects;
             GetWorkItemStore();
             return Json(projectList, JsonRequestBehavior.AllowGet);
 
@@ -59,15 +55,13 @@ namespace tfs_dashboard.Controllers
 
         public JsonResult GetSharedQueriesList(string projectName)
         {
-            WorkItemStore workItemStore = (WorkItemStore)Session["WorkItemStore"];
+            var workItemStore = (WorkItemStore) Session["WorkItemStore"];
             var project = workItemStore.Projects[projectName];
 
-            QueryHierarchy query = project.QueryHierarchy;
-            var queryFolder = query as QueryFolder;
-            var queryItem = queryFolder["Shared Queries"];
-            queryFolder = queryItem as QueryFolder;
+            var queryItem = project.QueryHierarchy["Shared Queries"];
+            var queryFolder = queryItem as QueryFolder;
 
-            IEnumerable<string> names = (IEnumerable<string>)GetQueriesNames(GetAllContainedQueriesList(queryFolder));
+            var names = (IEnumerable<string>) GetQueriesNames(GetAllContainedQueriesList(queryFolder));
 
             return Json(names, JsonRequestBehavior.AllowGet);
         }
@@ -75,46 +69,34 @@ namespace tfs_dashboard.Controllers
 
         public JsonResult GetWorkItems(string queryName, string projectName)
         {
-            WorkItemStore workItemStore = (WorkItemStore)Session["WorkItemStore"];
-            QueryItem sel = GetQueryByName(queryName, projectName);
-            QueryDefinition def = (QueryDefinition)sel;
-            IDictionary project = new Dictionary<string, string>();
-            project.Add("project", projectName);
-            WorkItemCollection result = workItemStore.Query(def.QueryText, project);
-            TeamItemStore store = new TeamItemStore(result, workItemStore);
+            var workItemStore = (WorkItemStore) Session["WorkItemStore"];
+            var sel = (QueryDefinition) GetQueryByName(queryName, projectName);
+            var result = workItemStore.Query(sel.QueryText, new Dictionary<string,string>{{"project", projectName}});
+            var store = new TeamItemStore(result, workItemStore);
             return Json(store);
         }
 
         private QueryItem GetQueryByName(string name, string projectName)
         {
 
-            WorkItemStore workItemStore = (WorkItemStore)Session["WorkItemStore"];
+            var workItemStore = (WorkItemStore) Session["WorkItemStore"];
             var project = workItemStore.Projects[projectName];
 
-            QueryHierarchy query = project.QueryHierarchy;
-            var queryFolder = query as QueryFolder;
-            QueryItem queryItem = queryFolder["Shared Queries"];
+            var queryFolder = (QueryFolder) project.QueryHierarchy;
+            var queryItem = queryFolder["Shared Queries"];
             queryFolder = queryItem as QueryFolder;
 
-            IEnumerable queries = GetAllContainedQueriesList(queryFolder);
+            var queries = GetAllContainedQueriesList(queryFolder);
 
             return queries.Cast<QueryItem>().FirstOrDefault(item => item.Name == name);
         }
 
         private void GetWorkItemStore()
         {
-            try
-            {
-                string tfsUrl = (string)Session["TfsUrl"];
-                string collectionName = (string)Session["SelectedCollection"];
-                Uri teamCollectionUri = new Uri(tfsUrl + "/" + collectionName);
-                WorkItemStore workItemStore = WorkItemRepository.Get(teamCollectionUri);
-                Session["WorkItemStore"] = workItemStore;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            var tfsUrl = (string) Session["TfsUrl"];
+            var collectionName = (string) Session["SelectedCollection"];
+            var teamCollectionUri = new Uri(tfsUrl.TrimEnd('/') + "/" + collectionName);
+            Session["WorkItemStore"] = WorkItemRepository.Get(teamCollectionUri);
         }
 
         private IEnumerable GetAllContainedQueriesList(QueryFolder queryFolder)
@@ -123,10 +105,9 @@ namespace tfs_dashboard.Controllers
             var queryItems = new List<QueryItem>();
             foreach (var item in queryFolder)
             {
-                var type = item.GetType();
-                if (type.Name == "QueryFolder")
+                if (item.GetType().Name == "QueryFolder")
                 {
-                    IEnumerable subQueryItems = GetAllContainedQueriesList(item as QueryFolder);
+                    var subQueryItems = GetAllContainedQueriesList(item as QueryFolder);
                     queryItems.AddRange(subQueryItems.Cast<QueryItem>());
                 }
                 else
@@ -140,7 +121,7 @@ namespace tfs_dashboard.Controllers
 
         private static IEnumerable GetQueriesNames(IEnumerable queryFolder)
         {
-            return (from QueryItem item in queryFolder select String.Format(item.Name)).ToList();
+            return (from QueryItem item in queryFolder select item.Name).ToList();
         }
     }
 }
